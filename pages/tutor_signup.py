@@ -22,7 +22,8 @@ meta_col0, meta_col1, meta_col2 = st.columns(3)
 # Read data from google sheets to initiate
 import gspread
 
-sa = gspread.service_account(filename='service_account.json')
+credentials = st.secrets['gcp_service_account']
+sa = gspread.service_account_from_dict(credentials)
 sh = sa.open("AAh schedules")
 
 wks_schedule = sh.worksheet("Tutor Weekly Schedule")
