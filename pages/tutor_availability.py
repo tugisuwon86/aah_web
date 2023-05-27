@@ -43,7 +43,8 @@ with st.form('save_form'):
 # Read data from google sheets to initiate
 import gspread
 
-sa = gspread.service_account(filename='service_account.json')
+credentials = st.secrets['gcp_service_account']
+sa = gspread.service_account_from_dict(credentials)
 sh = sa.open("AAh schedules")
 
 wks_schedule = sh.worksheet("Tutor Weekly Schedule - next week")
