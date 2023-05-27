@@ -1,0 +1,9 @@
+google-auth==2.19.0
+google-auth-oauthlib==1.0.0
+gsheetsdb==0.1.13.1
+gspread==5.9.0
+pandas==1.5.3
+pandas-profiling==3.6.6
+streamlit==1.22.0
+streamlit-aggrid==0.3.4.post3
+streamlit-pandas-profiling==0.1.3
