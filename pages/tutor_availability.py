@@ -70,5 +70,5 @@ if check_.shape[0] > 0 and save_submitted:
     print(schedule.head(5))
     wks_schedule.update([schedule.columns.values.tolist()] + schedule.values.tolist())
     st.success('Your tutor availability schedule has been successfully updated!', icon="✅")
-else:
+elif check_.shape[0] == 0:
     st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
