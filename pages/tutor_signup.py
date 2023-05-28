@@ -1,7 +1,7 @@
 import streamlit as st
 #from streamlit_pandas_profiling import st_profile_report
 import pandas as pd
-#import pandas_profiling
+import pandas_profiling
 from PIL import Image
 
 st.markdown("""
@@ -39,6 +39,17 @@ email = st.text_input('Please type your email (must match with email we have in 
 st.write('Your email address is: ', email)
 st.write('Make sure your email address if accurate before proceeding; otherwise, you will not be able to sign up for tutor')
 
+st.write('Your status summary---------')
+# make sure the student is in our system
+check_ = df_student[df_student['Email'] == email]
+number_of_booking = df[df['Student Email'] == email]
+if check_.shape[0] == 0:
+    st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
+elif number_of_booking.shape[0] > 2:
+    current_booking = number_of_booking[['Name', 'Subject', 'Schedule']]
+    current_booking.columns = ['Tutor Name', 'Subject', 'Schedule']
+    st.table(current_booking)
+    st.error('You booked more than the number of weekly limit')
 
 subject_options = sorted(tuple(set(df['Subject'].values)))
 subject = meta_col0.selectbox('Subject', subject_options)
@@ -103,7 +114,7 @@ if check_.shape[0] > 0 and save_submitted:
     df.loc[index[0], 'Available'] = 'N' # it's not available anymore!
     wks_schedule.update([df.columns.values.tolist()] + df.values.tolist())
     st.success('You are booked! Please check your email for the confirmation', icon="✅")
-else:
+elif check_.shape[0] == 0:
     st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
 
 
