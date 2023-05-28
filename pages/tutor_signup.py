@@ -45,7 +45,7 @@ check_ = df_student[df_student['Email'] == email]
 number_of_booking = df[df['Student Email'] == email]
 if check_.shape[0] == 0:
     st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
-elif number_of_booking.shape[0] > 2:
+elif number_of_booking.shape[0] >= 2:
     current_booking = number_of_booking[['Name', 'Subject', 'Schedule']]
     current_booking.columns = ['Tutor Name', 'Subject', 'Schedule']
     st.table(current_booking)
@@ -109,13 +109,16 @@ check_ = df_student[df_student['Email'] == email]
 print(check_, tutor, option)
 print(df.head())
 
-if check_.shape[0] > 0 and save_submitted:
-    index = df.index[(df['Name'] == tutor) & (df['Schedule'] == option) & (df['Available'] == 'Y')].to_list()
-    df.loc[index[0], 'Available'] = 'N' # it's not available anymore!
-    df.loc[index[0], 'Student Email'] = email
-    wks_schedule.update([df.columns.values.tolist()] + df.values.tolist())
-    st.success('You are booked! Please check your email for the confirmation', icon="✅")
-elif check_.shape[0] == 0:
-    st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
+if save_submitted:
+    if number_of_booking.shape[0] >= 2:
+        st.error('You booked more than the number of weekly limit', icon="🚨")
+    elif check_.shape[0] > 0:
+        index = df.index[(df['Name'] == tutor) & (df['Schedule'] == option) & (df['Available'] == 'Y')].to_list()
+        df.loc[index[0], 'Available'] = 'N' # it's not available anymore!
+        df.loc[index[0], 'Student Email'] = email
+        wks_schedule.update([df.columns.values.tolist()] + df.values.tolist())
+        st.success('You are booked! Please check your email for the confirmation', icon="✅")
+    elif check_.shape[0] == 0:
+        st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
 
 
