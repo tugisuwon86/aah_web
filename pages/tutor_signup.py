@@ -112,6 +112,7 @@ print(df.head())
 if check_.shape[0] > 0 and save_submitted:
     index = df.index[(df['Name'] == tutor) & (df['Schedule'] == option) & (df['Available'] == 'Y')].to_list()
     df.loc[index[0], 'Available'] = 'N' # it's not available anymore!
+    df.loc[index[0], 'Student Email'] = email
     wks_schedule.update([df.columns.values.tolist()] + df.values.tolist())
     st.success('You are booked! Please check your email for the confirmation', icon="✅")
 elif check_.shape[0] == 0:
