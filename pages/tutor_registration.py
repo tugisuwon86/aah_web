@@ -30,6 +30,7 @@ wks_tutor = sh.worksheet("Tutors_Registration")
 
 # read google sheets as dataframe
 df_tutor = pd.DataFrame(wks_tutor.get_all_records())
+st.dataframe(df_tutor)
 
 with st.form('tutor_registration_form'):
   first_name = st.text_input('Your first name')
