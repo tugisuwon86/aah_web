@@ -26,7 +26,7 @@ credentials = st.secrets['gcp_service_account']
 sa = gspread.service_account_from_dict(credentials)
 sh = sa.open("AAh schedules")
 
-wks_tutor = sh.worksheet("Tutor_Registration")
+wks_tutor = sh.worksheet("Tutors_Registration")
 
 # read google sheets as dataframe
 df_tutor = pd.DataFrame(wks_tutor.get_all_records())
