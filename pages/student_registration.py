@@ -50,7 +50,7 @@ with st.form('tutor_registration_form'):
       st.error('please provide your full name', icon="🚨")
     elif not re.fullmatch(r"[^@]+@[^@]+\.[^@]+", email):
       st.error('please provide valid email address', icon="🚨")
-    elif email.strip() in df_tutor['email'].values:
+    elif email.strip() in df_student['email'].values:
       st.error('you are already registered!', icon="🚨")
     else:
       df_student.loc[len(df_student.index)] = [first_name, last_name, email, grade, country, referral, math_subjects, eng_subjects, 'N']
