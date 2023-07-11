@@ -37,9 +37,12 @@ with st.form('tutor_registration_form'):
   last_name = st.text_input('Your last name')
   email = st.text_input('Please type your email - must provide valid email; otherwise, the registration will be rejected')
 
-  grade = st.slider('Your grade', 5, 12, 5)
+  grade = st.selectbox('Your grade', (str(i)+'th' for i in range(5, 13)) + ('freshmen', 'sophomore', 'junior', 'senior'))
   country = st.text_input('Your country')
   referral = st.text_input('How did you hear about us?')
+
+  telephone = st.text_input('Your number')
+  
 
   math_subjects = st.multiselect('Which math subject would you like to teach?', ['Elementary Math', 'Middle School Math', 'Pre-Algebra', 'Algebra', 'Pre-Calculus'])
   eng_subjects = st.multiselect('Which english subject would you like to teach?', ['Elementary English', 'Middle School English'])
