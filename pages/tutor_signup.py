@@ -41,7 +41,7 @@ st.write('Make sure your email address if accurate before proceeding; otherwise,
 
 st.write('Your status summary---------')
 # make sure the student is in our system
-check_ = df_student[(df_student['Email'] == email) & (df_student['complete'] == 'Y')]
+check_ = df_student[(df_student['email'] == email) & (df_student['complete'] == 'Y')]
 number_of_booking = df[df['Student Email'] == email]
 if check_.shape[0] == 0:
     st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
