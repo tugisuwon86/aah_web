@@ -51,7 +51,9 @@ with st.form('tutor_registration_form'):
   submitted = st.form_submit_button("Submit tutor registration form")
   if submitted:
     # first check valid email
-    if not re.fullmatch(r"[^@]+@[^@]+\.[^@]+", email):
+    if first_name.strip() == '' or last_name.strip() == '':
+      st.error('please provide your full name', icon="🚨")
+    elif not re.fullmatch(r"[^@]+@[^@]+\.[^@]+", email):
       st.error('please provide valid email address', icon="🚨")
     elif email.strip() in df_tutor['email'].values:
       st.error('you are already registered!', icon="🚨")
