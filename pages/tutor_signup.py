@@ -105,7 +105,7 @@ with st.form('save_form'):
     save_submitted = st.form_submit_button('Please click to book the slot')
 
 # make sure the student is in our system
-check_ = df_student[df_student['Email'] == email]
+check_ = df_student[(df_student['email'] == email) & (df_student['complete'] == 'Y')]
 print(check_, tutor, option)
 print(df.head())
 
