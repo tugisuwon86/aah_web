@@ -48,13 +48,13 @@ sa = gspread.service_account_from_dict(credentials)
 sh = sa.open("AAh schedules")
 
 wks_schedule = sh.worksheet("Tutor Weekly Schedule - next week")
-wks_tutor = sh.worksheet("Tutors")
+wks_tutor = sh.worksheet("Tutors_Registration")
 
 # read google sheets as dataframe
 df = pd.DataFrame(wks_schedule.get_all_records())
 df_tutor = pd.DataFrame(wks_tutor.get_all_records())
 
-check_ = df_tutor[df_tutor['Email'] == email]
+check_ = df_tutor[(df_tutor['email'] == email) & (df_tutor['complete'] == 'Y')]
 if check_.shape[0] > 0 and save_submitted:
     # clear worksheet first
     wks_schedule.clear()
