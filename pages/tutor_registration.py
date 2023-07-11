@@ -40,8 +40,8 @@ with st.form('tutor_registration_form'):
   country = st.text_input('Your country')
   referral = st.text_input('How did you hear about us?')
 
-  math_subjects = st.multiselect('Which math subject would you like to teach?' ['Elementary Math', 'Middle School Math', 'Pre-Algebra', 'Algebra', 'Pre-Calculus'])
-  eng_subjects = st.multiselect('Which english subject would you like to teach?' ['Elementary English', 'Middle School English'])
+  math_subjects = st.multiselect('Which math subject would you like to teach?', ['Elementary Math', 'Middle School Math', 'Pre-Algebra', 'Algebra', 'Pre-Calculus'])
+  eng_subjects = st.multiselect('Which english subject would you like to teach?', ['Elementary English', 'Middle School English'])
 
   submitted = st.form_submit_button("Submit tutor registration form")
   if submitted:
