@@ -48,7 +48,7 @@ with st.form('tutor_registration_form'):
     # first check valid email
     if not re.fullmatch(r"[^@]+@[^@]+\.[^@]+", email):
       st.error('please provide valid email address', icon="🚨")
-    elif email in wks_tutor['email']:
+    elif email.strip() in df_tutor['email'].values:
       st.error('you are already registered!', icon="🚨")
     else:
       wks_tutor.append_row([first_name, last_name, email, grade, country, referral, math_subjects, eng_subjects, 'N'])
