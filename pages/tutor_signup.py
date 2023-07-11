@@ -27,8 +27,8 @@ sa = gspread.service_account_from_dict(credentials)
 sh = sa.open("AAh schedules")
 
 wks_schedule = sh.worksheet("Tutor Weekly Schedule")
-wks_tutor = sh.worksheet("Tutors")
-wks_student = sh.worksheet('Students')
+wks_tutor = sh.worksheet("Tutors_Registration")
+wks_student = sh.worksheet('Students_Registration')
 
 # read google sheets as dataframe
 df = pd.DataFrame(wks_schedule.get_all_records())
@@ -41,7 +41,7 @@ st.write('Make sure your email address if accurate before proceeding; otherwise,
 
 st.write('Your status summary---------')
 # make sure the student is in our system
-check_ = df_student[df_student['Email'] == email]
+check_ = df_student[(df_student['Email'] == email) & (df_student['complete'] == 'Y')]
 number_of_booking = df[df['Student Email'] == email]
 if check_.shape[0] == 0:
     st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
