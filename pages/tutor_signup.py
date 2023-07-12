@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import pandas_profiling
 from datetime import datetime
-import pytz
+# import pytz
 
 st.markdown("""
     <style>
@@ -17,122 +17,126 @@ st.markdown("""
 st.title('AAH Tutor Scheduler')
 
 # ---------------------------------------------------------------------------------------------------------
-# Create a dictionary with country name and corresponding timezone
-timezone_dict = {
-    "North America": {
-        "United States": "America/New_York",
-        "Canada": "America/Toronto",
-        "Mexico": "America/Mexico_City",
-        "Jamaica": "America/Jamaica",
-        "Costa Rica": "America/Costa_Rica",
-        "Bahamas": "America/Nassau",
-        "Honduras": "America/Tegucigalpa",
-        "Cuba": "America/Havana",
-        "Dominican Republic": "America/Santo_Domingo"
-    },
-    "South America": {
-        "Brazil": "America/Sao_Paulo",
-        "Argentina": "America/Argentina/Buenos_Aires",
-        "Chile": "America/Santiago",
-        "Colombia": "America/Bogota",
-        "Peru": "America/Lima",
-        "Uruguay": "America/Montevideo",
-        "Ecuador": "America/Guayaquil",
-        "Bolivia": "America/La_Paz",
-        "Paraguay": "America/Asuncion",
-        "Venezuela": "America/Caracas"
-    },
-    "Europe": {
-        "United Kingdom": "Europe/London",
-        "France": "Europe/Paris",
-        "Germany": "Europe/Berlin",
-        "Italy": "Europe/Rome",
-        "Spain": "Europe/Madrid",
-        "Russia": "Europe/Moscow",
-        "Turkey": "Europe/Istanbul",
-        "Greece": "Europe/Athens",
-        "Poland": "Europe/Warsaw",
-        "Ukraine": "Europe/Kiev"
-    },
-    "Asia": {
-        "India": "Asia/Kolkata",
-        "Japan": "Asia/Tokyo",
-        "China": "Asia/Shanghai",
-        "Saudi Arabia": "Asia/Riyadh",
-        "South Korea": "Asia/Seoul",
-        "Indonesia": "Asia/Jakarta",
-        "Malaysia": "Asia/Kuala_Lumpur",
-        "Vietnam": "Asia/Ho_Chi_Minh",
-        "Philippines": "Asia/Manila",
-        "Thailand": "Asia/Bangkok"
-    },
-    "Oceania": {
-        "Australia": "Australia/Sydney",
-        "New Zealand": "Pacific/Auckland",
-        "Fiji": "Pacific/Fiji",
-        "Papua New Guinea": "Pacific/Port_Moresby",
-        "Samoa": "Pacific/Apia",
-        "Tonga": "Pacific/Tongatapu",
-        "Solomon Islands": "Pacific/Guadalcanal",
-        "Vanuatu": "Pacific/Efate",
-        "Kiribati": "Pacific/Tarawa",
-        "New Caledonia": "Pacific/Noumea"
-    }
-}
+st.set_page_config(layout="wide")
 
-# Create a list of continents
-continents = ["North America", "South America", "Europe", "Asia", "Oceania"]
+# ---------------------------------------------------------------------------------------------------------
+                
+# # Create a dictionary with country name and corresponding timezone
+# timezone_dict = {
+#     "North America": {
+#         "United States": "America/New_York",
+#         "Canada": "America/Toronto",
+#         "Mexico": "America/Mexico_City",
+#         "Jamaica": "America/Jamaica",
+#         "Costa Rica": "America/Costa_Rica",
+#         "Bahamas": "America/Nassau",
+#         "Honduras": "America/Tegucigalpa",
+#         "Cuba": "America/Havana",
+#         "Dominican Republic": "America/Santo_Domingo"
+#     },
+#     "South America": {
+#         "Brazil": "America/Sao_Paulo",
+#         "Argentina": "America/Argentina/Buenos_Aires",
+#         "Chile": "America/Santiago",
+#         "Colombia": "America/Bogota",
+#         "Peru": "America/Lima",
+#         "Uruguay": "America/Montevideo",
+#         "Ecuador": "America/Guayaquil",
+#         "Bolivia": "America/La_Paz",
+#         "Paraguay": "America/Asuncion",
+#         "Venezuela": "America/Caracas"
+#     },
+#     "Europe": {
+#         "United Kingdom": "Europe/London",
+#         "France": "Europe/Paris",
+#         "Germany": "Europe/Berlin",
+#         "Italy": "Europe/Rome",
+#         "Spain": "Europe/Madrid",
+#         "Russia": "Europe/Moscow",
+#         "Turkey": "Europe/Istanbul",
+#         "Greece": "Europe/Athens",
+#         "Poland": "Europe/Warsaw",
+#         "Ukraine": "Europe/Kiev"
+#     },
+#     "Asia": {
+#         "India": "Asia/Kolkata",
+#         "Japan": "Asia/Tokyo",
+#         "China": "Asia/Shanghai",
+#         "Saudi Arabia": "Asia/Riyadh",
+#         "South Korea": "Asia/Seoul",
+#         "Indonesia": "Asia/Jakarta",
+#         "Malaysia": "Asia/Kuala_Lumpur",
+#         "Vietnam": "Asia/Ho_Chi_Minh",
+#         "Philippines": "Asia/Manila",
+#         "Thailand": "Asia/Bangkok"
+#     },
+#     "Oceania": {
+#         "Australia": "Australia/Sydney",
+#         "New Zealand": "Pacific/Auckland",
+#         "Fiji": "Pacific/Fiji",
+#         "Papua New Guinea": "Pacific/Port_Moresby",
+#         "Samoa": "Pacific/Apia",
+#         "Tonga": "Pacific/Tongatapu",
+#         "Solomon Islands": "Pacific/Guadalcanal",
+#         "Vanuatu": "Pacific/Efate",
+#         "Kiribati": "Pacific/Tarawa",
+#         "New Caledonia": "Pacific/Noumea"
+#     }
+# }
 
-# Streamlit app page setup
-st.set_page_config(
-    page_title='Time Zone Coverter', 
-    page_icon='🌎',
-    layout='centered',
-    initial_sidebar_state='expanded',
-    menu_items={
-        'About': """This app is intended to select a country, get its 
-        time zone in UTC format  and have its correspondent result 
-        from a user-entered PST time."""
-    }  
-)
+# # Create a list of continents
+# continents = ["North America", "South America", "Europe", "Asia", "Oceania"]
 
-# Main header
-st.header('Time Zone Coverter Streamlit app')
+# # Streamlit app page setup
+# st.set_page_config(
+#     page_title='Time Zone Coverter', 
+#     page_icon='🌎',
+#     layout='centered',
+#     initial_sidebar_state='expanded',
+#     menu_items={
+#         'About': """This app is intended to select a country, get its 
+#         time zone in UTC format  and have its correspondent result 
+#         from a user-entered PST time."""
+#     }  
+# )
 
-# Add some blank space
-st.markdown("##")
+# # Main header
+# st.header('Time Zone Coverter Streamlit app')
 
-# Create a dropdown to select a continent
-continent = st.sidebar.selectbox("1. Select a continent", continents)
+# # Add some blank space
+# st.markdown("##")
 
-# Create a dropdown to select a country within the selected continent
-countries = list(timezone_dict[continent].keys())
-country = st.sidebar.selectbox("2. Select a country", countries)
+# # Create a dropdown to select a continent
+# continent = st.sidebar.selectbox("1. Select a continent", continents)
 
-# Display the selected UTC offset
-st.markdown("### :earth_americas: Corresponding UTC time:")
-timezone = timezone_dict[continent][country]
-utc_offset = datetime.now(pytz.timezone(timezone)).strftime('%z')
-st.markdown(f"> **{country}** time zone is **UTC{utc_offset[:-2]}:{utc_offset[-2:]}**")
+# # Create a dropdown to select a country within the selected continent
+# countries = list(timezone_dict[continent].keys())
+# country = st.sidebar.selectbox("2. Select a country", countries)
 
-# Add some blank space
-st.markdown("##")
+# # Display the selected UTC offset
+# st.markdown("### :earth_americas: Corresponding UTC time:")
+# timezone = timezone_dict[continent][country]
+# utc_offset = datetime.now(pytz.timezone(timezone)).strftime('%z')
+# st.markdown(f"> **{country}** time zone is **UTC{utc_offset[:-2]}:{utc_offset[-2:]}**")
 
-# Create input for PST time
-st.markdown("### :clock10: PST time to UTC converter:")
-pst_input = st.text_input("Enter PST time (e.g., 10:00 AM PST)")
+# # Add some blank space
+# st.markdown("##")
 
-# Convert PST time to UTC+X (where X is the offset)
-try:
-    pst_time = datetime.strptime(pst_input, "%I:%M %p PST")
-    pst_time = pytz.timezone("US/Pacific").localize(pst_time, is_dst=None)
-    target_time = pst_time.astimezone(pytz.timezone(timezone)).strftime("%I:%M %p %Z")
-    st.markdown(f"> The corresponding time in **{country}** is **{target_time}**")
-except:
-    st.markdown("""
-    :lock: Invalid input format. Please enter PST time in format 
-    '<span style="color:#7ef471"><b> 10:00 AM PST </b></span>'
-    """, unsafe_allow_html=True)
+# # Create input for PST time
+# st.markdown("### :clock10: PST time to UTC converter:")
+# pst_input = st.text_input("Enter PST time (e.g., 10:00 AM PST)")
+
+# # Convert PST time to UTC+X (where X is the offset)
+# try:
+#     pst_time = datetime.strptime(pst_input, "%I:%M %p PST")
+#     pst_time = pytz.timezone("US/Pacific").localize(pst_time, is_dst=None)
+#     target_time = pst_time.astimezone(pytz.timezone(timezone)).strftime("%I:%M %p %Z")
+#     st.markdown(f"> The corresponding time in **{country}** is **{target_time}**")
+# except:
+#     st.markdown("""
+#     :lock: Invalid input format. Please enter PST time in format 
+#     '<span style="color:#7ef471"><b> 10:00 AM PST </b></span>'
+#     """, unsafe_allow_html=True)
     
 # ---------------------------------------------------------------------------------------------------------
 # Read data from google sheets to initiate
@@ -170,45 +174,13 @@ elif number_of_booking.shape[0] >= 2:
 subject_options = sorted(tuple(set(df['Subject'].values)))
 subject = meta_col0.selectbox('Subject', subject_options)
 
-weekday_option = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')
-weekday = meta_col1.selectbox('Day of Week', weekday_option)
-
-weekday_mapping = {'Monday': 'M', 'Tuesday': 'T', 'Wednesday': 'W'}
-
+NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
+tutor_date = st.date_input("Tutor Date", NOW)
 
 tutor_option = df.loc[(df['Subject']==subject) & (df['Schedule'].str.startswith(weekday_mapping[weekday]))].Name.unique()
 tutor = meta_col2.selectbox('Tutor', tutor_option)
 
 # ---------------------------------------------------------------------------------------------------------
-
-## calendar view
-# from calendar_view.core import data
-# from calendar_view.core.config import CalendarConfig
-# from calendar_view.calendar import Calendar
-# from calendar_view.core.event import Event, EventStyles
-
-# config = data.CalendarConfig(
-#     lang='en',
-#     title=tutor,
-#     dates='',
-#     show_year=True,
-#     legend=False,
-# )
-# events = [
-#     Event('Planning', day='2019-09-23', start='11:00', end='13:00'),
-#     Event('Demo', day='2019-09-27', start='15:00', end='16:00'),
-#     Event('Retrospective', day='2019-09-27', start='17:00', end='18:00'),
-# ]
-
-# data.validate_config(config)
-# data.validate_events(events, config)
-
-# calendar = Calendar.build(config)
-# calendar.add_events(events)
-# calendar.save("yoga_class.png")
-
-# image = Image.open("yoga_class.png")
-# st.image(image, caption='calendar')
 
 
 temp = df.loc[(df['Name']==tutor) & (df['Schedule'].str.contains(weekday_mapping[weekday]))]
