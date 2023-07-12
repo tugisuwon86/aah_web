@@ -7,4 +7,5 @@ pandas-profiling==3.6.6
 streamlit==1.22.0
 streamlit-aggrid==0.3.4.post3
 streamlit-pandas-profiling==0.1.3
+st-pages
 calendar-view==2.2.0
