@@ -177,7 +177,7 @@ subject = meta_col0.selectbox('Subject', subject_options)
 NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
 tutor_date = st.date_input("Tutor Date", NOW)
 
-tutor_option = df.loc[(df['Subject']==subject) & (df['Schedule'].str.startswith(weekday_mapping[weekday]))].Name.unique()
+tutor_option = df.loc[(df['Subject']==subject) & (df['Schedule'].str.startswith('M'))].Name.unique()
 tutor = meta_col2.selectbox('Tutor', tutor_option)
 
 # ---------------------------------------------------------------------------------------------------------
