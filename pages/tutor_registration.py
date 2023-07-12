@@ -3,7 +3,6 @@ import streamlit as st
 import pandas as pd
 import pandas_profiling
 import re
-import cv2
 
 st.markdown("""
     <style>
