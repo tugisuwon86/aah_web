@@ -5,6 +5,12 @@ st.set_page_config(
     page_icon="👋",
 )
 
+st.subheader("1️⃣ Update threshold")
+
+st.subheader("2️⃣ Report_status")
+
+st.subheader("3️⃣ Update cycle detection")
+
 st.write("# Welcome to AAH Tutor Scheduler Website! 👋")
 
 st.sidebar.success("Select the menu")
