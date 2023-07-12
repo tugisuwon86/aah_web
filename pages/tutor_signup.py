@@ -183,7 +183,7 @@ tutor = meta_col2.selectbox('Tutor', tutor_option)
 # ---------------------------------------------------------------------------------------------------------
 
 
-temp = df.loc[(df['Name']==tutor) & (df['Schedule'].str.contains(weekday_mapping[weekday]))]
+temp = df.loc[(df['Name']==tutor) & (df['Schedule'].str.contains('M'))]
 available_options = temp[temp['Available'] == 'Y']
 
 option = st.selectbox('Please choose the time slot you want to schedule: ', sorted(available_options['Schedule'].values))
