@@ -17,7 +17,7 @@ st.markdown("""
 st.title('AAH Tutor Scheduler')
 
 # ---------------------------------------------------------------------------------------------------------
-
+meta_col0, meta_col1, meta_col2 = st.columns(3)
 # ---------------------------------------------------------------------------------------------------------
                 
 # # Create a dictionary with country name and corresponding timezone
