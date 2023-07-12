@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import pandas_profiling
 import re
+import cv2
 
 st.markdown("""
     <style>
@@ -47,6 +48,9 @@ with st.form('tutor_registration_form'):
   math_subjects = st.multiselect('Which math subject would you like to teach?', ['Elementary Math', 'Middle School Math', 'Pre-Algebra', 'Algebra', 'Pre-Calculus'])
   eng_subjects = st.multiselect('Which english subject would you like to teach?', ['Elementary English', 'Middle School English'])
 
+  student_id = st.file_uploader('Upload a picture of your student ID')
+  if student_id is not None:
+      
   # convert array of subjects to string
   math_subjects = ','.join(math_subjects)
   eng_subjects = ','.join(eng_subjects)
