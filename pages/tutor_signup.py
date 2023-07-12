@@ -14,13 +14,6 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-
-st.title('AAH Tutor Scheduler')
-
-# ---------------------------------------------------------------------------------------------------------
-meta_col0, meta_col1, meta_col2 = st.columns(3)
-# ---------------------------------------------------------------------------------------------------------
-                
 # Create a dictionary with country name and corresponding timezone
 timezone_dict = {
     "North America": {
@@ -138,6 +131,14 @@ st.markdown(f"> **{country}** time zone is **UTC{utc_offset[:-2]}:{utc_offset[-2
 #     '<span style="color:#7ef471"><b> 10:00 AM PST </b></span>'
 #     """, unsafe_allow_html=True)
     
+
+
+st.title('AAH Tutor Scheduler')
+
+# ---------------------------------------------------------------------------------------------------------
+meta_col0, meta_col1, meta_col2 = st.columns(3)
+# ---------------------------------------------------------------------------------------------------------
+                
 # ---------------------------------------------------------------------------------------------------------
 # Read data from google sheets to initiate
 import gspread
