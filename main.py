@@ -1,15 +1,27 @@
 import streamlit as st
+from st_pages import Page, Section, show_pages, add_page_title
 
 st.set_page_config(
     page_title="Hello",
     page_icon="👋",
 )
 
-st.subheader("1️⃣ Update threshold")
+add_page_title() # By default this also adds indentation
 
-st.subheader("2️⃣ Report_status")
-
-st.subheader("3️⃣ Update cycle detection")
+# Specify what pages should be shown in the sidebar, and what their titles and icons
+# should be
+show_pages(
+    [
+        Page("home.py", "Home", "🏠"),
+        Section("For Tutors Only", icon="🎈️"),
+        Page("pages/tutor_registration.py", "Tutor Registration"),
+        Page("pages/tutor_availability.py", "Tutor Availability Update"),
+        # Pages after a section will be indented
+        Section("For Students Only", icon="💪"),    
+        Page("pages/student_registration.py", "Student Registration"),
+        Page("pages/tutor_signup.py", "Tutor Sign Up")
+    ]
+)
 
 st.write("# Welcome to AAH Tutor Scheduler Website! 👋")
 
