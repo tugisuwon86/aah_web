@@ -20,45 +20,62 @@ show_pages(
 )
 add_page_title() # By default this also adds indentation
 
+
+st.markdown(
+    """
+    
+    ** Please use the current page for the following purposes
+    ### First time
+    - If this is your time upon registration, please share your availability here
+    ### Update your availability
+    - If your schedule changes, please make update here
+    ### Vacation/Absense plan
+    - If you are not available for certain time period, please let us know by completing this page!
+"""
+)
+
 email = st.text_input('Please type your email (must match with email we have in our system')
 st.write('Your email address is: ', email)
 st.write('Make sure your email address if accurate before proceeding; otherwise, you will not be able to update your tutor schedule')
 
+action = st.radio('Choose one', ['New registration/Update schedule', 'Vacation/Absense plan'], horizontal=True)
 
-options_Monday = st.multiselect(
-    "Please choose all available time slot for Monday (Eastern Time)",
-    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
-)
-
-options_Tuesday = st.multiselect(
-    "Please choose all available time slot for Tuesday (Eastern Time)",
-    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
-)
-
-options_Wednesday = st.multiselect(
-    "Please choose all available time slot for Wednesday (Eastern Time)",
-    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
-)
-
-options_Thursday = st.multiselect(
-    "Please choose all available time slot for Thursday (Eastern Time)",
-    [str(i)+' PM -'+str(i+1) + ' PM'for i in range(2, 10)]
-)
-
-options_Friday = st.multiselect(
-    "Please choose all available time slot for Friday (Eastern Time)",
-    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
-)
-
-options_Saturday = st.multiselect(
-    "Please choose all available time slot for Saturday (Eastern Time)",
-    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
-)
-
-options_Sunday = st.multiselect(
-    "Please choose all available time slot for Sunday (Eastern Time)",
-    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
-)
+if action == 'New registration/Update schedule':
+    options_Monday = st.multiselect(
+        "Please choose all available time slot for Monday (Eastern Time)",
+        [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
+    )
+    
+    options_Tuesday = st.multiselect(
+        "Please choose all available time slot for Tuesday (Eastern Time)",
+        [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
+    )
+    
+    options_Wednesday = st.multiselect(
+        "Please choose all available time slot for Wednesday (Eastern Time)",
+        [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
+    )
+    
+    options_Thursday = st.multiselect(
+        "Please choose all available time slot for Thursday (Eastern Time)",
+        [str(i)+' PM -'+str(i+1) + ' PM'for i in range(2, 10)]
+    )
+    
+    options_Friday = st.multiselect(
+        "Please choose all available time slot for Friday (Eastern Time)",
+        [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
+    )
+    
+    options_Saturday = st.multiselect(
+        "Please choose all available time slot for Saturday (Eastern Time)",
+        [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
+    )
+    
+    options_Sunday = st.multiselect(
+        "Please choose all available time slot for Sunday (Eastern Time)",
+        [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
+    )
+else:
 
 with st.form('save_form'):
     save_submitted = st.form_submit_button('Please click to update your schedule')
