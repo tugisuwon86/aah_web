@@ -77,6 +77,8 @@ timezone_dict = {
     }
 }
 
+# ---------------------------------------------------------------------------------------------------------
+
 # Create a list of continents
 continents = ["North America", "South America", "Europe", "Asia", "Oceania"]
 
@@ -122,7 +124,6 @@ pst_input = st.text_input("Enter PST time (e.g., 10:00 AM PST)")
 
 st.title('AAH Tutor Scheduler')
 
-# ---------------------------------------------------------------------------------------------------------
 meta_col0, meta_col1, meta_col2 = st.columns(3)
 # ---------------------------------------------------------------------------------------------------------
                 
