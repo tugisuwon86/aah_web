@@ -40,6 +40,7 @@ st.write('Your email address is: ', email)
 st.write('Make sure your email address if accurate before proceeding; otherwise, you will not be able to update your tutor schedule')
 
 action = st.radio('Choose one', ['New registration/Update schedule', 'Vacation/Absense plan'], horizontal=True)
+NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
 
 if action == 'New registration/Update schedule':
     options_Monday = st.multiselect(
@@ -77,7 +78,6 @@ if action == 'New registration/Update schedule':
         [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
     )
 else:
-    NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
     absent_start_date = st.date_input("Start Absent Dates", NOW, min_value=NOW, max_value=(NOW+dt.timedelta(days=60)).date())
     absent_end_date = st.date_input("End Absent Dates", NOW, min_value=NOW, max_value=(NOW+dt.timedelta(days=60)).date())
 
@@ -100,23 +100,36 @@ wks_absense = sh.worksheet("Tutors Absense") #email, start_date, end_date
 # read google sheets as dataframe
 df = pd.DataFrame(wks_schedule.get_all_records())
 df_tutor = pd.DataFrame(wks_tutor.get_all_records())
+df_absense = pd.DataFrame(wks_absense.get_all_records())
 
 check_ = df_tutor[(df_tutor['email'] == email) & (df_tutor['complete'] == 'Y')]
 if check_.shape[0] > 0 and save_submitted:
-    name = check_.first_name[0] + ' ' + check_.last_name[0]
-    # clear worksheet first
-    wks_schedule.clear()
+    if action == 'New registration/Update schedule':
+        name = check_.first_name[0] + ' ' + check_.last_name[0]
+        # clear worksheet first
+        wks_schedule.clear()
+    
+        # overwrite if exists
+        print(list(df.columns))
+        df = df[df['Email'] != email]
+        rows = []
+        for dow, options in zip(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], [options_Monday, options_Tuesday, options_Wednesday, options_Thursday, options_Friday, options_Saturday, options_Sunday]):
+            for r in options:
+                rows += [[name, email, dow + ' : ' + r]]
+        schedule = pd.concat([df, pd.DataFrame(rows, columns=['Name', 'Email', 'Schedule'])])
+        print(schedule.head(5))
+        wks_schedule.update([schedule.columns.values.tolist()] + schedule.values.tolist())
+    else:
+        # clear worksheet first
+        wks_absense.clear()
 
-    # overwrite if exists
-    print(list(df.columns))
-    df = df[df['Email'] != email]
-    rows = []
-    for dow, options in zip(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], [options_Monday, options_Tuesday, options_Wednesday, options_Thursday, options_Friday, options_Saturday, options_Sunday]):
-        for r in options:
-            rows += [[name, email, dow + ' : ' + r]]
-    schedule = pd.DataFrame(rows, columns=['Name', 'Email', 'Schedule'])
-    print(schedule.head(5))
-    wks_schedule.update([schedule.columns.values.tolist()] + schedule.values.tolist())
+        # filter old data
+        df_absense = df_absense[df_absense['end_data'] >= NOW]
+        df_absense = df_absense[df_absense['email'] != email]
+        rows = [[email, absent_start_date, absent_end_date]]
+        schedule = pd.concat([df_absense, pd.DataFrame(rows, column=['email', 'start_date', 'end_date'])])
+        wks_absense.update([schedule.columns.values.tolist()] + schedule.values.tolist())
+        
     st.success('Your tutor availability schedule has been successfully updated!', icon="✅")
 elif check_.shape[0] == 0:
     st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
