@@ -26,28 +26,38 @@ st.write('Make sure your email address if accurate before proceeding; otherwise,
 
 
 options_Monday = st.multiselect(
-    "Please choose all available time slot for Monday (EST)",
-    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(3, 10)]
+    "Please choose all available time slot for Monday (Eastern Time)",
+    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
 )
 
 options_Tuesday = st.multiselect(
-    "Please choose all available time slot for Tuesday (EST)",
-    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(3, 10)]
+    "Please choose all available time slot for Tuesday (Eastern Time)",
+    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
 )
 
 options_Wednesday = st.multiselect(
-    "Please choose all available time slot for Wednesday (EST)",
-    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(3, 10)]
+    "Please choose all available time slot for Wednesday (Eastern Time)",
+    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
 )
 
 options_Thursday = st.multiselect(
-    "Please choose all available time slot for Thursday (EST)",
-    [str(i)+' PM -'+str(i+1) + ' PM'for i in range(3, 10)]
+    "Please choose all available time slot for Thursday (Eastern Time)",
+    [str(i)+' PM -'+str(i+1) + ' PM'for i in range(2, 10)]
 )
 
 options_Friday = st.multiselect(
-    "Please choose all available time slot for Friday (EST)",
-    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(3, 10)]
+    "Please choose all available time slot for Friday (Eastern Time)",
+    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
+)
+
+options_Saturday = st.multiselect(
+    "Please choose all available time slot for Saturday (Eastern Time)",
+    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
+)
+
+options_Sunday = st.multiselect(
+    "Please choose all available time slot for Sunday (Eastern Time)",
+    [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
 )
 
 with st.form('save_form'):
@@ -62,8 +72,9 @@ credentials = st.secrets['gcp_service_account']
 sa = gspread.service_account_from_dict(credentials)
 sh = sa.open("AAh schedules")
 
-wks_schedule = sh.worksheet("Tutor Weekly Schedule - next week")
-wks_tutor = sh.worksheet("Tutors_Registration")
+wks_schedule = sh.worksheet("Tutor Weekly Schedule")
+wks_tutor = sh.worksheet("Tutors_Registration") #email, first_name, last_name
+wks_absense = sh.worksheet("Tutors Absense") #email, start_date, end_date
 
 # read google sheets as dataframe
 df = pd.DataFrame(wks_schedule.get_all_records())
@@ -71,6 +82,7 @@ df_tutor = pd.DataFrame(wks_tutor.get_all_records())
 
 check_ = df_tutor[(df_tutor['email'] == email) & (df_tutor['complete'] == 'Y')]
 if check_.shape[0] > 0 and save_submitted:
+    name = check_.first_name[0] + ' ' + check_.last_name[0]
     # clear worksheet first
     wks_schedule.clear()
 
@@ -78,10 +90,10 @@ if check_.shape[0] > 0 and save_submitted:
     print(list(df.columns))
     df = df[df['Email'] != email]
     rows = []
-    for dow, options in zip(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], [options_Monday, options_Tuesday, options_Wednesday, options_Thursday, options_Friday]):
+    for dow, options in zip(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], [options_Monday, options_Tuesday, options_Wednesday, options_Thursday, options_Friday, options_Saturday, options_Sunday]):
         for r in options:
-            rows += [['A', '', email, dow + ' : ' + r, 'Y']]
-    schedule = pd.DataFrame(rows, columns=['Name', 'Subject', 'Email', 'Schedule', 'Available'])
+            rows += [[name, email, dow + ' : ' + r]]
+    schedule = pd.DataFrame(rows, columns=['Name', 'Email', 'Schedule'])
     print(schedule.head(5))
     wks_schedule.update([schedule.columns.values.tolist()] + schedule.values.tolist())
     st.success('Your tutor availability schedule has been successfully updated!', icon="✅")
