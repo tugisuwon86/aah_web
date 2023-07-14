@@ -76,6 +76,9 @@ if action == 'New registration/Update schedule':
         [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
     )
 else:
+    NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
+    absent_start_date = st.date_input("Start Absent Dates", NOW, min_value=NOW, max_value=(NOW+dt.timedelta(days=60)).date())
+    absent_end_date = st.date_input("End Absent Dates", NOW, min_value=NOW, max_value=(NOW+dt.timedelta(days=60)).date())
 
 with st.form('save_form'):
     save_submitted = st.form_submit_button('Please click to update your schedule')
