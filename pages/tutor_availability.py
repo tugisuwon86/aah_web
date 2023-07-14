@@ -101,6 +101,7 @@ wks_absense = sh.worksheet("Tutors Absense") #email, start_date, end_date
 df = pd.DataFrame(wks_schedule.get_all_records())
 df_tutor = pd.DataFrame(wks_tutor.get_all_records())
 df_absense = pd.DataFrame(wks_absense.get_all_records())
+st.write(df_absense.shape)
 
 check_ = df_tutor[(df_tutor['email'] == email) & (df_tutor['complete'] == 'Y')]
 if check_.shape[0] > 0 and save_submitted:
@@ -124,6 +125,7 @@ if check_.shape[0] > 0 and save_submitted:
         wks_absense.clear()
 
         # filter old data
+        st.write(str(NOW)[:10])
         df_absense = df_absense[df_absense['end_data'] >= str(NOW)[:10]]
         df_absense = df_absense[df_absense['email'] != email]
         rows = [[email, absent_start_date, absent_end_date]]
