@@ -6,7 +6,7 @@ st.set_page_config(
     page_icon="👋",
 )
 
-# add_page_title() # By default this also adds indentation
+add_page_title() # By default this also adds indentation
 
 # # Specify what pages should be shown in the sidebar, and what their titles and icons
 # # should be
