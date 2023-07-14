@@ -122,11 +122,11 @@ if check_.shape[0] > 0 and save_submitted:
         wks_schedule.update([schedule.columns.values.tolist()] + schedule.values.tolist())
     else:
         # clear worksheet first
-        wks_absense.clear()
+        #wks_absense.clear()
 
         # filter old data
-        st.write(str(NOW)[:10])
-        df_absense = df_absense[df_absense['end_data'] >= str(NOW)[:10]]
+        
+        df_absense = df_absense[df_absense['end_date'] >= str(NOW)[:10]]
         df_absense = df_absense[df_absense['email'] != email]
         rows = [[email, absent_start_date, absent_end_date]]
         schedule = pd.concat([df_absense, pd.DataFrame(rows, column=['email', 'start_date', 'end_date'])])
