@@ -5,6 +5,21 @@ import pandas as pd
 
 st.set_page_config(page_title="Tutor Availability Sign up Form", page_icon="📈")
 
+from st_pages import Page, Section, show_pages, add_page_title
+show_pages(
+    [
+        Page("main.py", "Home", "🏠"),
+        Section(name="For Tutors Only", icon="🎈️"),
+        Page("pages/tutor_registration.py", "Tutor Registration"),
+        Page("pages/tutor_availability.py", "Tutor Availability Update"),
+        
+        Section(name="For Students Only", icon="💪"),    
+        Page("pages/student_registration.py", "Student Registration"),
+        Page("pages/tutor_signup.py", "Tutor Sign Up"),
+    ]
+)
+add_page_title() # By default this also adds indentation
+
 email = st.text_input('Please type your email (must match with email we have in our system')
 st.write('Your email address is: ', email)
 st.write('Make sure your email address if accurate before proceeding; otherwise, you will not be able to update your tutor schedule')
