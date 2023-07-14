@@ -25,19 +25,15 @@ show_pages(
 
 st.write("# Welcome to AAH Tutor Scheduler Website! 👋")
 
-st.sidebar.success("Select the menu")
-
 st.markdown(
     """
     
-    **👈 Select a demo from the sidebar** to see some examples
-    of what Streamlit can do!
-    ### Want to learn more?
-    - Check out our main website
-    - Please sign up from the main website (both tutors and students) before visiting this site
-    - You won't be able to sign up for tutor unless you are fully registered!
-    ### See more complex demos
-    - Tutors: Please update your schedule weekly to participate
-    - Students: It is your responsibility to show up during signed session
+    **👈 Select the option from the left sidebar to proceed!
+    ### Tutors
+    - Please complete your registration first before participating in tutor program!
+    - You must send us the email with photo ID (i.e. student ID) to complete the registration
+    ### Students
+    - Please complete your registration (Student registration) before signing up for the tutor!
+    - Currently you can book up to 2 tutor sessions per week
 """
 )
