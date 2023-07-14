@@ -124,7 +124,7 @@ if check_.shape[0] > 0 and save_submitted:
         wks_absense.clear()
 
         # filter old data
-        df_absense = df_absense[df_absense['end_data'] >= NOW]
+        df_absense = df_absense[df_absense['end_data'] >= str(NOW)]
         df_absense = df_absense[df_absense['email'] != email]
         rows = [[email, absent_start_date, absent_end_date]]
         schedule = pd.concat([df_absense, pd.DataFrame(rows, column=['email', 'start_date', 'end_date'])])
