@@ -56,7 +56,8 @@ with st.form('tutor_registration_form'):
   country = st.text_input('Your country')
   referral = st.text_input('How did you hear about us?')
 
-  telephone = st.text_input('Your number')
+  school = st.text_input('Name of your school')
+  telephone = st.text_input('Please provide valid number in case we need to reach you')
   
 
   math_subjects = st.multiselect('Which math subject would you like to teach?', ['Elementary Math', 'Middle School Math', 'Pre-Algebra', 'Algebra', 'Pre-Calculus'])
@@ -77,7 +78,7 @@ with st.form('tutor_registration_form'):
     elif email.strip() in df_tutor['email'].values:
       st.error('you are already registered!', icon="🚨")
     else:
-      df_tutor.loc[len(df_tutor.index)] = [first_name, last_name, email, grade, country, referral, math_subjects, eng_subjects, 'N']
+      df_tutor.loc[len(df_tutor.index)] = [first_name, last_name, email, grade, country, referral, school, telephone, math_subjects, eng_subjects, 'N']
       st.dataframe(df_tutor)
       wks_tutor.update([df_tutor.columns.values.tolist()] + df_tutor.values.tolist())
       st.write("We received your registration! Please give us 24 hours to approve your registration!")
