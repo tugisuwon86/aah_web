@@ -99,24 +99,24 @@ timezone = timezone_dict[continent][country]
 utc_offset = datetime.now(pytz.timezone(timezone)).strftime('%z')
 st.markdown(f"> **{country}** time zone is **UTC{utc_offset[:-2]}:{utc_offset[-2:]}**")
 
-# # Add some blank space
-# st.markdown("##")
+# Add some blank space
+st.markdown("##")
 
-# # Create input for PST time
-# st.markdown("### :clock10: PST time to UTC converter:")
-# pst_input = st.text_input("Enter PST time (e.g., 10:00 AM PST)")
+# Create input for PST time
+st.markdown("### :clock10: PST time to UTC converter:")
+pst_input = st.text_input("Enter PST time (e.g., 10:00 AM PST)")
 
-# # Convert PST time to UTC+X (where X is the offset)
-# try:
-#     pst_time = datetime.strptime(pst_input, "%I:%M %p PST")
-#     pst_time = pytz.timezone("US/Pacific").localize(pst_time, is_dst=None)
-#     target_time = pst_time.astimezone(pytz.timezone(timezone)).strftime("%I:%M %p %Z")
-#     st.markdown(f"> The corresponding time in **{country}** is **{target_time}**")
-# except:
-#     st.markdown("""
-#     :lock: Invalid input format. Please enter PST time in format 
-#     '<span style="color:#7ef471"><b> 10:00 AM PST </b></span>'
-#     """, unsafe_allow_html=True)
+# Convert PST time to UTC+X (where X is the offset)
+try:
+    pst_time = datetime.strptime(pst_input, "%I:%M %p PST")
+    pst_time = pytz.timezone("US/Pacific").localize(pst_time, is_dst=None)
+    target_time = pst_time.astimezone(pytz.timezone(timezone)).strftime("%I:%M %p %Z")
+    st.markdown(f"> The corresponding time in **{country}** is **{target_time}**")
+except:
+    st.markdown("""
+    :lock: Invalid input format. Please enter PST time in format 
+    '<span style="color:#7ef471"><b> 10:00 AM PST </b></span>'
+    """, unsafe_allow_html=True)
     
 
 
