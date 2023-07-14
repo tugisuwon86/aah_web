@@ -12,7 +12,7 @@ add_page_title() # By default this also adds indentation
 # # should be
 show_pages(
     [
-        Page("home.py", "Home", "🏠"),
+        Page("main.py", "Home", "🏠"),
         Section(name="For Tutors Only", icon="🎈️"),
         Page("pages/tutor_registration.py", "Tutor Registration"),
         Page("pages/tutor_availability.py", "Tutor Availability Update"),
