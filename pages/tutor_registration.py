@@ -15,6 +15,20 @@ st.markdown("""
 
 st.title('AAH Tutor Registration')
 
+show_pages(
+    [
+        Page("main.py", "Home", "🏠"),
+        Section(name="For Tutors Only", icon="🎈️"),
+        Page("pages/tutor_registration.py", "Tutor Registration"),
+        Page("pages/tutor_availability.py", "Tutor Availability Update"),
+        
+        Section(name="For Students Only", icon="💪"),    
+        Page("pages/student_registration.py", "Student Registration"),
+        Page("pages/tutor_signup.py", "Tutor Sign Up"),
+    ]
+)
+add_page_title() # By default this also adds indentation
+
 # ---------------------------------------------------------------------------------------------------------
 meta_col0, meta_col1, meta_col2 = st.columns(3)
 
