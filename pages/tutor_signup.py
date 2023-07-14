@@ -80,19 +80,6 @@ timezone_dict = {
 # Create a list of continents
 continents = ["North America", "South America", "Europe", "Asia", "Oceania"]
 
-# Streamlit app page setup
-st.set_page_config(
-    page_title='Time Zone Coverter', 
-    page_icon='🌎',
-    layout='centered',
-    initial_sidebar_state='expanded',
-    menu_items={
-        'About': """This app is intended to select a country, get its 
-        time zone in UTC format  and have its correspondent result 
-        from a user-entered PST time."""
-    }  
-)
-
 # Main header
 st.header('Time Zone Coverter Streamlit app')
 
