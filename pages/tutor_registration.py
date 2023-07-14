@@ -15,6 +15,7 @@ st.markdown("""
 
 st.title('AAH Tutor Registration')
 
+from st_pages import Page, Section, show_pages, add_page_title
 show_pages(
     [
         Page("main.py", "Home", "🏠"),
