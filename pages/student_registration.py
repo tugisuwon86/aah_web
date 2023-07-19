@@ -13,7 +13,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 
-st.title('AAH Student Registration')
+# st.title('AAH Student Registration')
 from st_pages import Page, Section, show_pages, add_page_title
 show_pages(
     [
@@ -44,7 +44,7 @@ wks_student = sh.worksheet("Students_Registration")
 
 # read google sheets as dataframe
 df_student = pd.DataFrame(wks_student.get_all_records())
-st.dataframe(df_student)
+# st.dataframe(df_student)
 
 with st.form('tutor_registration_form'):
   first_name = st.text_input('Your first name')
