@@ -13,7 +13,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 
-st.title('AAH Tutor Registration')
+# st.title('AAH Tutor Registration')
 
 from st_pages import Page, Section, show_pages, add_page_title
 show_pages(
@@ -45,14 +45,14 @@ wks_tutor = sh.worksheet("Tutors_Registration")
 
 # read google sheets as dataframe
 df_tutor = pd.DataFrame(wks_tutor.get_all_records())
-st.dataframe(df_tutor)
+# st.dataframe(df_tutor)
 
 with st.form('tutor_registration_form'):
   first_name = st.text_input('Your first name')
   last_name = st.text_input('Your last name')
   email = st.text_input('Please type your email - must provide valid email; otherwise, the registration will be rejected')
 
-  grade = st.selectbox('Your grade', [str(i)+'th' for i in range(5, 13)] + ['freshmen', 'sophomore', 'junior', 'senior'])
+  grade = st.selectbox('Your grade', [str(i)+'th' for i in range(5, 13)] + ['Freshmen', 'Sophomore', 'Junior', 'Senior'])
   country = st.text_input('Your country')
   referral = st.text_input('How did you hear about us?')
 
@@ -68,8 +68,12 @@ with st.form('tutor_registration_form'):
   math_subjects = ','.join(math_subjects)
   eng_subjects = ','.join(eng_subjects)
 
+  st.divider()  # 👈 Draws a horizontal rule
+  st.write("Please send an email to the following address with photo ID to complete the registration!")
+  sent = st.checkbox('Sent email')
+    
   submitted = st.form_submit_button("Submit tutor registration form")
-  if submitted:
+  if submitted and sent:
     # first check valid email
     if first_name.strip() == '' or last_name.strip() == '':
       st.error('please provide your full name', icon="🚨")
