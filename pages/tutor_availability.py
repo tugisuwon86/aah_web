@@ -129,7 +129,7 @@ if check_.shape[0] > 0 and save_submitted:
         df_absense = df_absense[df_absense['end_date'] >= str(NOW)[:10]]
         df_absense = df_absense[df_absense['email'] != email]
         rows = [[email, absent_start_date, absent_end_date]]
-        schedule = pd.concat([df_absense, pd.DataFrame(rows, column=['email', 'start_date', 'end_date'])])
+        schedule = pd.concat([df_absense, pd.DataFrame(rows, columns=['email', 'start_date', 'end_date'])])
         wks_absense.update([schedule.columns.values.tolist()] + schedule.values.tolist())
         
     st.success('Your tutor availability schedule has been successfully updated!', icon="✅")
