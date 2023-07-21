@@ -63,7 +63,7 @@ subject = meta_col0.selectbox('Subject', ["Elementary Math", "Pre-Calculus"])
 NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
 tutor_date = meta_col1.date_input("Tutor Date", NOW, min_value=NOW, max_value=(NOW+dt.timedelta(days=14)).date())
 
-tutor_option = df_tutor.loc[((df_tutor['math_subjects'].contains(subject)) | (df_tutor['english_subjects'].contains(subject))) & (df_tutor['Schedule'].str.startswith('M'))].Name.unique()
+tutor_option = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject)) | (df_tutor['english_subjects'].str.contains(subject))) & (df_tutor['Schedule'].str.startswith('M'))].Name.unique()
 tutor = meta_col2.selectbox('Tutor', tutor_option)
 
 # ---------------------------------------------------------------------------------------------------------
