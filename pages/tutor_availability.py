@@ -128,7 +128,7 @@ if check_.shape[0] > 0 and save_submitted:
         
         df_absense = df_absense[df_absense['end_date'] >= str(NOW)[:10]]
         df_absense = df_absense[df_absense['email'] != email]
-        rows = [[email, str(absent_start_date)[:10], str(absent_end_date)[:10]]
+        rows = [[email, str(absent_start_date)[:10], str(absent_end_date)[:10]]]
         schedule = pd.concat([df_absense, pd.DataFrame(rows, columns=['email', 'start_date', 'end_date'])])
         wks_absense.update([schedule.columns.values.tolist()] + schedule.values.tolist())
         
