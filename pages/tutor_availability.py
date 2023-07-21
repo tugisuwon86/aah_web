@@ -106,7 +106,7 @@ st.write(df_absense.shape)
 check_ = df_tutor[(df_tutor['email'] == email) & (df_tutor['complete'] == 'Y')]
 if check_.shape[0] > 0 and save_submitted:
     if action == 'New registration/Update schedule':
-        name = check_.first_name[0] + ' ' + check_.last_name[0]
+        name = check_.first_name.values[0] + ' ' + check_.last_name.values[0]
         # clear worksheet first
         wks_schedule.clear()
     
