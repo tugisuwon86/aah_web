@@ -31,6 +31,12 @@ wks_schedule = sh.worksheet("Tutor Student Matching")
 wks_tutor = sh.worksheet("Tutors_Registration")
 wks_student = sh.worksheet('Students_Registration')
 wks_absense = sh.worksheet("Tutors Absense")
+wks_tutor_schedule = sh.worksheet("Tutor Weekly Schedule")
+
+absent = {}
+for row in wks_tutor_schedule.values:
+    absent[row[0]] = [row[1], row[2]]
+print('absent', absent)
 
 # read google sheets as dataframe
 df = pd.DataFrame(wks_schedule.get_all_records())
@@ -40,6 +46,7 @@ df_tutor = df_tutor[df_tutor['complete'] == 'Y']
 
 df_student = pd.DataFrame(wks_student.get_all_records())
 df_abs = pd.DataFrame(wks_absense.get_all_records())
+df_schedule = pd.DataFrame(wks_tutor_schedule.get_all_records())
 
 email = st.text_input('Please type your email (must match with email we have in our system')
 st.write('Your email address is: ', email)
@@ -62,8 +69,26 @@ subject = meta_col0.selectbox('Subject', ["Elementary Math", "Pre-Calculus"])
 
 NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
 tutor_date = meta_col1.date_input("Tutor Date", NOW, min_value=NOW, max_value=(NOW+dt.timedelta(days=14)).date())
+# convert tutor_date to day of week
+tutor_dow = tutor_date.weekday()
+dow_mapping = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "sunday"}
+print(tutor_date, str(tutor_date), tutor_dow)
 
-tutor_option = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject)) | (df_tutor['english_subjects'].str.contains(subject))) & (df_tutor['Schedule'].str.startswith('M'))].Name.unique()
+tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject)) | (df_tutor['english_subjects'].str.contains(subject)))]
+tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow_mapping[tutor_dow]))]
+name_mapping = {}
+for row in tutor_option_2[['Email', 'Name']].values:
+    name_mapping[row[0]] = row[1]
+tutor_option = list(sorted(set(tutor_option_1.email.values) & set(tutor_option_2.Email.values)))
+
+# make sure tutor is available by comparing it with tutor's absent schedule
+tutor_option_ = []
+for t in tutor_option:
+    if t in absent:
+        if absent[t][0] <= str(tutor_date) <= absent[t][1]:
+            continue
+    tutor_option_ += [t]
+tutor_option = [name_mapping[x] for x in tutor_option_]
 tutor = meta_col2.selectbox('Tutor', tutor_option)
 
 # ---------------------------------------------------------------------------------------------------------
