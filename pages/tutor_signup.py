@@ -33,11 +33,6 @@ wks_student = sh.worksheet('Students_Registration')
 wks_absense = sh.worksheet("Tutors Absense")
 wks_tutor_schedule = sh.worksheet("Tutor Weekly Schedule")
 
-absent = {}
-for row in wks_tutor_schedule.values:
-    absent[row[0]] = [row[1], row[2]]
-print('absent', absent)
-
 # read google sheets as dataframe
 df = pd.DataFrame(wks_schedule.get_all_records())
 df_tutor = pd.DataFrame(wks_tutor.get_all_records())
@@ -47,6 +42,11 @@ df_tutor = df_tutor[df_tutor['complete'] == 'Y']
 df_student = pd.DataFrame(wks_student.get_all_records())
 df_abs = pd.DataFrame(wks_absense.get_all_records())
 df_schedule = pd.DataFrame(wks_tutor_schedule.get_all_records())
+
+absent = {}
+for row in df_schedule.values:
+    absent[row[0]] = [row[1], row[2]]
+print('absent', absent)
 
 email = st.text_input('Please type your email (must match with email we have in our system')
 st.write('Your email address is: ', email)
