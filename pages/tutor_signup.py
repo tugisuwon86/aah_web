@@ -95,7 +95,7 @@ email = email_mapping[tutor]
 
 # ---------------------------------------------------------------------------------------------------------
 print(str(tutor_date))
-taken = df.loc[(df['Email'] == email) & (df['Date'] == str(tutor_date)] # already taken
+taken = df.loc[(df['Email'] == email) & (df['Date'] == str(tutor_date))] # already taken
 taken_hours = taken.Schedule.values
 available = df_schedule.loc[(df_schedule['Email'] == email) & (~df_schedule['Schedule'].isin(taken_hours)] # filtered by day of week and email
 
