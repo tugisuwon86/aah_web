@@ -76,9 +76,10 @@ print(tutor_date, str(tutor_date), tutor_dow)
 
 tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject)) | (df_tutor['english_subjects'].str.contains(subject)))]
 tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow_mapping[tutor_dow]))]
-name_mapping = {}
+name_mapping, email_mapping = {}, {}
 for row in tutor_option_2[['Email', 'Name']].values:
     name_mapping[row[0]] = row[1]
+    email_mapping[row[1]] = row[0]
 tutor_option = list(sorted(set(tutor_option_1.email.values) & set(tutor_option_2.Email.values)))
 
 # make sure tutor is available by comparing it with tutor's absent schedule
@@ -90,14 +91,15 @@ for t in tutor_option:
     tutor_option_ += [t]
 tutor_option = [name_mapping[x] for x in tutor_option_]
 tutor = meta_col2.selectbox('Tutor', tutor_option)
+email = email_mapping[tutor]
 
 # ---------------------------------------------------------------------------------------------------------
+print(str(tutor_date))
+taken = df.loc[(df['Email'] == email) & (df['Date'] == str(tutor_date)] # already taken
+taken_hours = taken.Schedule.values
+available = df_schedule.loc[(df_schedule['Email'] == email) & (~df_schedule['Schedule'].isin(taken_hours)] # filtered by day of week and email
 
-
-temp = df.loc[(df['Name']==tutor) & (df['Schedule'].str.contains('M'))]
-available_options = temp[temp['Available'] == 'Y']
-
-option = st.selectbox('Please choose the time slot you want to schedule: ', sorted(available_options['Schedule'].values))
+option = st.selectbox('Please choose the time slot you want to schedule: ', sorted(available['Schedule'].values))
 st.write('You selected: ', option)
 
 with st.form('save_form'):
