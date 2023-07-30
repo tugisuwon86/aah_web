@@ -74,7 +74,7 @@ tutor_date = meta_col1.date_input("Tutor Date", NOW, min_value=NOW, max_value=(N
 # convert tutor_date to day of week
 tutor_dow = tutor_date.weekday()
 dow_mapping = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "sunday"}
-st.write(tutor_date, str(tutor_date), tutor_dow)
+#st.write(tutor_date, str(tutor_date), tutor_dow)
 
 tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject)) | (df_tutor['english_subjects'].str.contains(subject)))]
 tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow_mapping[tutor_dow]))]
@@ -100,7 +100,7 @@ else:
     st.write('Please choose your tutor')
 
 # ---------------------------------------------------------------------------------------------------------
-st.write('date: ', str(tutor_date))
+#st.write('date: ', str(tutor_date))
 taken = df.loc[(df['Email'] == email) & (df['Date'] == str(tutor_date))] # already taken
 taken_hours = taken.Schedule.values
 available = tutor_option_2 .loc[(tutor_option_2 ['Email'] == email) & (~tutor_option_2 ['Schedule'].isin(taken_hours))] # filtered by day of week and email
