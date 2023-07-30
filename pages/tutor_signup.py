@@ -93,6 +93,7 @@ for t in tutor_option:
     tutor_option_ += [t]
 tutor_option = [name_mapping[x] for x in tutor_option_]
 tutor = meta_col2.selectbox('Tutor', tutor_option)
+st.write(tutor)
 email = email_mapping[tutor]
 
 # ---------------------------------------------------------------------------------------------------------
