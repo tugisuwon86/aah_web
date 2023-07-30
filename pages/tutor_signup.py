@@ -46,7 +46,7 @@ df_schedule = pd.DataFrame(wks_tutor_schedule.get_all_records())
 absent = {}
 for row in df_schedule.values:
     absent[row[0]] = [row[1], row[2]]
-print('absent', absent)
+#print('absent', absent)
 
 email = st.text_input('Please type your email (must match with email we have in our system')
 st.write('Your email address is: ', email)
@@ -56,14 +56,14 @@ st.write('Your status summary---------')
 # make sure the student is in our system
 check_ = df_student[(df_student['email'] == email) & (df_student['complete'] == 'Y')]
 number_of_booking = df[df['Student Email'] == email]
-#print(df.head())
-st.write(email, number_of_booking.shape)
+
+current_booking = number_of_booking[['Name', 'Subject', 'Schedule']]
+current_booking.columns = ['Tutor Name', 'Subject', 'Schedule']
+st.table(current_booking)
+
 if check_.shape[0] == 0:
     st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
 elif number_of_booking.shape[0] >= 2:
-    current_booking = number_of_booking[['Name', 'Subject', 'Schedule']]
-    current_booking.columns = ['Tutor Name', 'Subject', 'Schedule']
-    st.table(current_booking)
     st.error('You booked more than the number of weekly limit')
 
 #subject_options = sorted(tuple(set(df['Subject'].values)))
@@ -93,8 +93,11 @@ for t in tutor_option:
     tutor_option_ += [t]
 tutor_option = [name_mapping[x] for x in tutor_option_]
 tutor = meta_col2.selectbox('Tutor', tutor_option)
-st.write('tutor: ' + tutor)
-email = email_mapping[tutor]
+#st.write('tutor: ' + tutor)
+if tutor in email_mapping:
+    email = email_mapping[tutor]
+else:
+    st.write('Please choose your tutor')
 
 # ---------------------------------------------------------------------------------------------------------
 st.write('date: ', str(tutor_date))
@@ -110,8 +113,8 @@ with st.form('save_form'):
 
 # make sure the student is in our system
 check_ = df_student[(df_student['email'] == email) & (df_student['complete'] == 'Y')]
-print(check_, tutor, option)
-print(df.head())
+#print(check_, tutor, option)
+#print(df.head())
 
 if save_submitted:
     if number_of_booking.shape[0] >= 2:
