@@ -56,8 +56,8 @@ st.write('Your status summary---------')
 # make sure the student is in our system
 check_ = df_student[(df_student['email'] == email) & (df_student['complete'] == 'Y')]
 number_of_booking = df[df['Student Email'] == email]
-print(df.head())
-print(email, number_of_booking.shape)
+#print(df.head())
+st.write(email, number_of_booking.shape)
 if check_.shape[0] == 0:
     st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
 elif number_of_booking.shape[0] >= 2:
@@ -74,7 +74,7 @@ tutor_date = meta_col1.date_input("Tutor Date", NOW, min_value=NOW, max_value=(N
 # convert tutor_date to day of week
 tutor_dow = tutor_date.weekday()
 dow_mapping = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "sunday"}
-print(tutor_date, str(tutor_date), tutor_dow)
+st.write(tutor_date, str(tutor_date), tutor_dow)
 
 tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject)) | (df_tutor['english_subjects'].str.contains(subject)))]
 tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow_mapping[tutor_dow]))]
@@ -93,17 +93,17 @@ for t in tutor_option:
     tutor_option_ += [t]
 tutor_option = [name_mapping[x] for x in tutor_option_]
 tutor = meta_col2.selectbox('Tutor', tutor_option)
-st.write(tutor)
+st.write('tutor: ' + tutor)
 email = email_mapping[tutor]
 
 # ---------------------------------------------------------------------------------------------------------
-print(str(tutor_date))
+st.write('date: ', str(tutor_date))
 taken = df.loc[(df['Email'] == email) & (df['Date'] == str(tutor_date))] # already taken
 taken_hours = taken.Schedule.values
 available = tutor_option_2 .loc[(tutor_option_2 ['Email'] == email) & (~tutor_option_2 ['Schedule'].isin(taken_hours))] # filtered by day of week and email
 
 option = st.selectbox('Please choose the time slot you want to schedule: ', sorted(available['Schedule'].values))
-st.write('You selected: ', option)
+st.write('You selected: ' + option)
 
 with st.form('save_form'):
     save_submitted = st.form_submit_button('Please click to book the slot')
