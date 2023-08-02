@@ -106,15 +106,15 @@ tutor_option = [name_mapping[x] for x in tutor_option_]
 tutor = meta_col2.selectbox('Tutor', tutor_option)
 #st.write('tutor: ' + tutor)
 if tutor in email_mapping:
-    email = email_mapping[tutor]
+    email_ = email_mapping[tutor]
 else:
     st.write('Please choose your tutor')
 
 # ---------------------------------------------------------------------------------------------------------
 #st.write('date: ', str(tutor_date))
-taken = df.loc[(df['Email'] == email) & (df['Date'] == str(tutor_date))] # already taken
+taken = df.loc[(df['Email'] == email_) & (df['Date'] == str(tutor_date))] # already taken
 taken_hours = taken.Schedule.values
-available = tutor_option_2 .loc[(tutor_option_2 ['Email'] == email) & (~tutor_option_2 ['Schedule'].isin(taken_hours))] # filtered by day of week and email
+available = tutor_option_2 .loc[(tutor_option_2 ['Email'] == email_) & (~tutor_option_2 ['Schedule'].isin(taken_hours))] # filtered by day of week and email
 
 option = st.selectbox('Please choose the time slot you want to schedule: ', sorted(available['Schedule'].values))
 #st.write('You selected: ' + option)
