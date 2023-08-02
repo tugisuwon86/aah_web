@@ -86,6 +86,7 @@ dow_mapping = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Fri
 tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject)) | (df_tutor['english_subjects'].str.contains(subject)))]
 print(tutor_option_1.head())
 tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow_mapping[tutor_dow]))]
+print('---------------------------')
 print(tutor_option_2.head())
 name_mapping, email_mapping = {}, {}
 for row in tutor_option_2[['Email', 'Name']].values:
