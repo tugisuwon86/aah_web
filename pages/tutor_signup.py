@@ -116,7 +116,7 @@ taken_hours = taken.Schedule.values
 available = tutor_option_2 .loc[(tutor_option_2 ['Email'] == email) & (~tutor_option_2 ['Schedule'].isin(taken_hours))] # filtered by day of week and email
 
 option = st.selectbox('Please choose the time slot you want to schedule: ', sorted(available['Schedule'].values))
-st.write('You selected: ' + option)
+#st.write('You selected: ' + option)
 
 with st.form('save_form'):
     save_submitted = st.form_submit_button('Please click to book the slot')
