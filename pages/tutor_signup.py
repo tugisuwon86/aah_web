@@ -131,9 +131,13 @@ if save_submitted:
     if number_of_booking.shape[0] >= 2:
         st.error('You booked more than the number of weekly limit', icon="🚨")
     elif check_.shape[0] > 0:
-        index = df.index[(df['Name'] == tutor) & (df['Schedule'] == option) & (df['Available'] == 'Y')].to_list()
+        index = df.index[(df['Name'] == tutor) & (df['Schedule'] == option)].to_list()
         df.loc[index[0], 'Available'] = 'N' # it's not available anymore!
         df.loc[index[0], 'Student Email'] = email
+
+        #Name	Subject	Email	Schedule	Date	Student Email
+        rows = [[tutor, subject, email_, option, str(tutor_date), email]]
+        df = pd.concat([df, pd.DataFrame(rows, columns=df.columns.values.tolist())])
         wks_schedule.update([df.columns.values.tolist()] + df.values.tolist())
         st.success('You are booked! Please check your email for the confirmation', icon="✅")
     elif check_.shape[0] == 0:
