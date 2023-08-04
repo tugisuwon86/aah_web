@@ -69,7 +69,7 @@ with st.form('tutor_registration_form'):
   eng_subjects = ','.join(eng_subjects)
 
   st.divider()  # 👈 Draws a horizontal rule
-  st.write("Please send an email to the following address with photo ID to complete the registration!")
+  st.write("Please send an email to freetutoring@americanassimilationhelpline.org with photo ID to complete the registration!")
   sent = st.checkbox('Sent email')
     
   submitted = st.form_submit_button("Submit tutor registration form")
