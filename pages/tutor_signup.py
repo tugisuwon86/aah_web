@@ -76,7 +76,14 @@ elif number_of_booking.shape[0] >= 2:
 
 #subject_options = sorted(tuple(set(df['Subject'].values)))
 
-subjects_ = json.load(open('subjects.json'))
+# subjects_ = json.load(open('subjects.json'))
+subjects_ = {'academic': ['English Conversation for International students', 'Elementary English & Language Arts', 
+          'Middle School English & Language Arts', 'Elementary Math', 'Middle School Math', 'Pre-Algebra', 'Algebra I',
+          'Algebra II', 'Geometry', 'Pre-Calculus', 'AP Calculus AB', 'AP Calculus BC', 'Beginner Spanish', 'Advanced Spanish', 
+          'SAT', 'ACT'], 
+  'Computer Science': ['Scratch', 'HTML/CSS', 'General Programming Concepts', 'Intro to Python', 'Intermediate/Advanced Python', 
+                      'Intro to JAVA', 'Intermediate/Advanced JAVA']
+}
 subject_1 = meta_col0.selectbox('Subject', subjects_['academic'])
 subject_2 = meta_col0.selectbox('Computer Science Subject', subjects_['computer'])
 
