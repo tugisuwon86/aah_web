@@ -166,7 +166,7 @@ def mailing(tutor, subject, email_, option, tutor_date, email):
     Hello, 
 
     Student has signed up for the following tutor session:
-    Subject: {Subject}
+    Subject: {subject}
     Datetime: {tutor_date}
 
     If you are not available at this time, please send email to freetutoring@americanassimilationhelpline.org. Please reach out to {email} with google meet link before the session. Thanks.
