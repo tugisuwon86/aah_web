@@ -24,7 +24,7 @@ show_pages(
 )
 add_page_title() # By default this also adds indentation
 
-meta_col0, meta_col01, meta_col1, meta_col2 = st.columns(4)
+meta_col0, meta_col1, meta_col2 = st.columns(3)
 # ---------------------------------------------------------------------------------------------------------
                 
 # ---------------------------------------------------------------------------------------------------------
@@ -84,8 +84,8 @@ subjects_ = {'academic': ['English Conversation for International students', 'El
   'Computer Science': ['Scratch', 'HTML/CSS', 'General Programming Concepts', 'Intro to Python', 'Intermediate/Advanced Python', 
                       'Intro to JAVA', 'Intermediate/Advanced JAVA']
 }
-subject_1 = meta_col0.selectbox('Subject', subjects_['academic'])
-subject_2 = meta_col0.selectbox('Computer Science Subject', subjects_['Computer Science'])
+subject = meta_col0.selectbox('Subject', subjects_['academic'] + subjects_['Computer Science'])
+#subject_2 = meta_col0.selectbox('Computer Science Subject', subjects_['Computer Science'])
 
 NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
 tutor_date = meta_col1.date_input("Tutor Date", NOW, min_value=NOW, max_value=(NOW+dt.timedelta(days=14)).date())
@@ -94,17 +94,17 @@ tutor_dow = tutor_date.weekday()
 dow_mapping = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
 #st.write(tutor_date, str(tutor_date), tutor_dow)
 
-tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject_1)) | (df_tutor['english_subjects'].str.contains(subject_2)))]
-st.table(tutor_option_1)
+tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject)) | (df_tutor['english_subjects'].str.contains(subject)))]
+#st.table(tutor_option_1)
 tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow_mapping[tutor_dow]))]
 print('---------------------------')
-st.table(tutor_option_2)
+#st.table(tutor_option_2)
 name_mapping, email_mapping = {}, {}
 for row in tutor_option_2[['Email', 'Name']].values:
     name_mapping[row[0]] = row[1]
     email_mapping[row[1]] = row[0]
 tutor_option = list(sorted(set(tutor_option_1.email.values) & set(tutor_option_2.Email.values)))
-print('tutor option', tutor_option)
+#print('tutor option', tutor_option)
 
 # make sure tutor is available by comparing it with tutor's absent schedule
 tutor_option_ = []
