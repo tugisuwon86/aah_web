@@ -5,6 +5,7 @@ import pandas_profiling
 from datetime import datetime
 import datetime as dt
 import pytz
+import json
 
 st.set_page_config(page_title="Tutor Sign up Form", page_icon="📈")
 
@@ -23,7 +24,7 @@ show_pages(
 )
 add_page_title() # By default this also adds indentation
 
-meta_col0, meta_col1, meta_col2 = st.columns(3)
+meta_col0, meta_col01, meta_col1, meta_col2 = st.columns(4)
 # ---------------------------------------------------------------------------------------------------------
                 
 # ---------------------------------------------------------------------------------------------------------
@@ -74,7 +75,10 @@ elif number_of_booking.shape[0] >= 2:
     st.error('You booked more than the number of weekly limit')
 
 #subject_options = sorted(tuple(set(df['Subject'].values)))
-subject = meta_col0.selectbox('Subject', ["Elementary Math", "Pre-Calculus"])
+
+subjects_ = json.load(open('subjects.json'))
+subject_1 = meta_col0.selectbox('Subject', subjects_['academic'])
+subject_2 = meta_col0.selectbox('Computer Science Subject', subjects_['computer'])
 
 NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
 tutor_date = meta_col1.date_input("Tutor Date", NOW, min_value=NOW, max_value=(NOW+dt.timedelta(days=14)).date())
@@ -83,7 +87,7 @@ tutor_dow = tutor_date.weekday()
 dow_mapping = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
 #st.write(tutor_date, str(tutor_date), tutor_dow)
 
-tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject)) | (df_tutor['english_subjects'].str.contains(subject)))]
+tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject_1)) | (df_tutor['english_subjects'].str.contains(subject_2)))]
 st.table(tutor_option_1)
 tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow_mapping[tutor_dow]))]
 print('---------------------------')
