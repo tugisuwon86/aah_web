@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import pandas_profiling
 import re
+import json
 
 st.markdown("""
     <style>
@@ -59,9 +60,10 @@ with st.form('tutor_registration_form'):
   school = st.text_input('Name of your school')
   telephone = st.text_input('Please provide valid number in case we need to reach you')
   
-
-  math_subjects = st.multiselect('Which math subject would you like to teach?', ['Elementary Math', 'Middle School Math', 'Pre-Algebra', 'Algebra', 'Pre-Calculus'])
-  eng_subjects = st.multiselect('Which english subject would you like to teach?', ['Elementary English', 'Middle School English'])
+  subjects = json.load(open('subjects.json'))
+    
+  math_subjects = st.multiselect('Which subject would you like to teach?', subjects['academic'])
+  eng_subjects = st.multiselect('Which computer science subject would you like to teach?', subjects['computer'])
 
       
   # convert array of subjects to string
