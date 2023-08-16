@@ -138,6 +138,49 @@ check_ = df_student[(df_student['email'] == email) & (df_student['complete'] == 
 #print(check_, tutor, option)
 #print(df.head())
 
+def mailing(tutor, subject, email_, option, tutor_date, email):
+    import yagmail
+    GMAIL = yagmail.SMTP("aahtutoringscheduler@gmail.com", "@RQu&S56pAS1")
+
+    subject = f'AAH Tutoring Schedule Confirmation'
+    
+    body_1 = f"""
+    Hello, 
+
+    You have signed up for the following tutor session:
+    Tutor: {tutor}
+    Subject: {Subject}
+    Datetime: {tutor_date}
+
+    If you need to cancel/reschedule, please send email to freetutoring@americanassimilationhelpline.org. Your tutor will reach out with google meet link prior to the sessions. Thanks.
+    
+    """[1:]
+    
+    signature = """\n
+    <span  style="font-family: monospace; font-size: 9pt">Auto-generated message sent from the aah-tutor</span>
+    """[:-1]
+    
+    GMAIL.send(to=email, subject=subject, contents=[body_1, signature])
+
+    body_2 = f"""
+    Hello, 
+
+    Student has signed up for the following tutor session:
+    Subject: {Subject}
+    Datetime: {tutor_date}
+
+    If you are not available at this time, please send email to freetutoring@americanassimilationhelpline.org. Please reach out to {email} with google meet link before the session. Thanks.
+    
+    """[1:]
+    
+    signature = """\n
+    <span  style="font-family: monospace; font-size: 9pt">Auto-generated message sent from the aah-tutor</span>
+    """[:-1]
+    
+
+    GMAIL.send(to=email_, subject=subject, contents=[body_2, signature])
+pw = '@RQu&S56pAS1'
+
 if save_submitted:
     if number_of_booking.shape[0] >= 2:
         st.error('You booked more than the number of weekly limit', icon="🚨")
@@ -148,6 +191,7 @@ if save_submitted:
 
         #Name	Subject	Email	Schedule	Date	Student Email
         rows = [[tutor, subject, email_, option, str(tutor_date), email]]
+        mailing(tutor, subject, email_, option, str(tutor_date), email)
         df = pd.concat([df, pd.DataFrame(rows, columns=df.columns.values.tolist())])
         wks_schedule.update([df.columns.values.tolist()] + df.values.tolist())
         st.success('You are booked! Please check your email for the confirmation', icon="✅")
