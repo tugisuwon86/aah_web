@@ -85,7 +85,7 @@ subjects_ = {'academic': ['English Conversation for International students', 'El
                       'Intro to JAVA', 'Intermediate/Advanced JAVA']
 }
 subject_1 = meta_col0.selectbox('Subject', subjects_['academic'])
-subject_2 = meta_col0.selectbox('Computer Science Subject', subjects_['computer'])
+subject_2 = meta_col0.selectbox('Computer Science Subject', subjects_['Computer Science'])
 
 NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
 tutor_date = meta_col1.date_input("Tutor Date", NOW, min_value=NOW, max_value=(NOW+dt.timedelta(days=14)).date())
