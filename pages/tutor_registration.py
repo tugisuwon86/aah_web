@@ -71,7 +71,7 @@ with st.form('tutor_registration_form'):
   #subjects = json.load(open('subjects.json'))
     
   math_subjects = st.multiselect('Which subject would you like to teach?', subjects['academic'])
-  eng_subjects = st.multiselect('Which computer science subject would you like to teach?', subjects['computer'])
+  eng_subjects = st.multiselect('Which computer science subject would you like to teach?', subjects['Computer Science'])
 
       
   # convert array of subjects to string
