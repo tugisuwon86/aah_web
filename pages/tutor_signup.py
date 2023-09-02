@@ -94,11 +94,11 @@ tutor_dow = tutor_date.weekday()
 dow_mapping = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
 #st.write(tutor_date, str(tutor_date), tutor_dow)
 
-tutor_time = meta_col2.selectbox('Time', [str(i)+'
+tutor_time = meta_col2.selectbox('Time', [str(i)+' PM -'+str(i+1) + ' PM'for i in range(2, 10)])
 
 tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject)) | (df_tutor['english_subjects'].str.contains(subject)))]
 #st.table(tutor_option_1)
-tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow_mapping[tutor_dow]))]
+tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'] == dow_mapping[tutor_dow] + " : " + tutor_time)]
 print('---------------------------')
 #st.table(tutor_option_2)
 name_mapping, email_mapping = {}, {}
