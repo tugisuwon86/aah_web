@@ -41,41 +41,42 @@ st.write('Make sure your email address if accurate before proceeding; otherwise,
 
 action = st.radio('Choose one', ['New registration/Update schedule', 'Vacation/Absense plan'], horizontal=True)
 NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
+options = [str(i)+' PM -'+str(i+1) + ' PM'for i in range(2, 12)]
 
 if action == 'New registration/Update schedule':
     options_Monday = st.multiselect(
         "Please choose all available time slot for Monday (Eastern Time)",
-        [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
+        options
     )
     
     options_Tuesday = st.multiselect(
         "Please choose all available time slot for Tuesday (Eastern Time)",
-        [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
+        options
     )
     
     options_Wednesday = st.multiselect(
         "Please choose all available time slot for Wednesday (Eastern Time)",
-        [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
+        options
     )
     
     options_Thursday = st.multiselect(
         "Please choose all available time slot for Thursday (Eastern Time)",
-        [str(i)+' PM -'+str(i+1) + ' PM'for i in range(2, 10)]
+        options
     )
     
     options_Friday = st.multiselect(
         "Please choose all available time slot for Friday (Eastern Time)",
-        [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
+        options
     )
     
     options_Saturday = st.multiselect(
         "Please choose all available time slot for Saturday (Eastern Time)",
-        [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
+        options
     )
     
     options_Sunday = st.multiselect(
         "Please choose all available time slot for Sunday (Eastern Time)",
-        [str(i)+' PM -'+str(i+1) + ' PM' for i in range(2, 10)]
+        options
     )
 else:
     absent_start_date = st.date_input("Start Absent Dates", NOW, min_value=NOW, max_value=(NOW+dt.timedelta(days=60)).date())
