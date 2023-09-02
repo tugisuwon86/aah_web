@@ -49,7 +49,7 @@ df_student = pd.DataFrame(wks_student.get_all_records())
 with st.form('tutor_registration_form'):
   first_name = st.text_input('Your first name')
   last_name = st.text_input('Your last name')
-  email = st.text_input('Please type your email - must provide valid email; otherwise, the registration will be rejected')
+  email = st.text_input('Please type your GMAIL - must provide valid email; otherwise, the registration will be rejected')
 
   grade = st.slider('Your grade', 5, 12, 5)
   country = st.text_input('Your country')
