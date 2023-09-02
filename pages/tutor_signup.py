@@ -24,7 +24,7 @@ show_pages(
 )
 add_page_title() # By default this also adds indentation
 
-meta_col0, meta_col1, meta_col2 = st.columns(3)
+meta_col0, meta_col1, meta_col2, meta_col3 = st.columns(4)
 # ---------------------------------------------------------------------------------------------------------
                 
 # ---------------------------------------------------------------------------------------------------------
@@ -94,6 +94,8 @@ tutor_dow = tutor_date.weekday()
 dow_mapping = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
 #st.write(tutor_date, str(tutor_date), tutor_dow)
 
+tutor_time = meta_col2.selectbox('Time', [str(i)+'
+
 tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject)) | (df_tutor['english_subjects'].str.contains(subject)))]
 #st.table(tutor_option_1)
 tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow_mapping[tutor_dow]))]
@@ -114,7 +116,7 @@ for t in tutor_option:
             continue
     tutor_option_ += [t]
 tutor_option = [name_mapping[x] for x in tutor_option_]
-tutor = meta_col2.selectbox('Tutor', tutor_option)
+tutor = meta_col3.selectbox('Tutor', tutor_option)
 #st.write('tutor: ' + tutor)
 if tutor in email_mapping:
     email_ = email_mapping[tutor]
