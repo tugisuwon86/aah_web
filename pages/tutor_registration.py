@@ -65,7 +65,7 @@ with st.form('tutor_registration_form'):
   last_name = st.text_input('Your last name')
   email = st.text_input('Please type your GMAIL - must provide valid email; otherwise, the registration will be rejected')
 
-  grade = st.selectbox('Your grade', [str(i)+'th' for i in range(5, 13)] + ['Freshmen', 'Sophomore', 'Junior', 'Senior'])
+  grade = st.selectbox('Your grade', [str(i)+'th' for i in range(8, 13)] + ['College Freshmen', 'College Sophomore', 'College Junior', 'College Senior'])
   country = st.text_input('Your country')
   referral = st.text_input('How did you hear about us?')
 
@@ -84,7 +84,7 @@ with st.form('tutor_registration_form'):
 
   st.divider()  # 👈 Draws a horizontal rule
   st.write("Please send an email to freetutoring@americanassimilationhelpline.org with photo ID to complete the registration!")
-  st.write("Students need to provide 1) Student ID or 2) Driver license - if you don't have one, please send us your parent's driver license to complete your registration")
+  st.write("Tutors need to provide 1) Student ID or 2) Driver license - if you don't have one, please send us your parent's driver license to complete your registration")
   sent = st.checkbox('Sent email')
     
   submitted = st.form_submit_button("Submit tutor registration form")
