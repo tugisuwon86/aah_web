@@ -49,7 +49,7 @@ df_student = pd.DataFrame(wks_student.get_all_records())
 with st.form('tutor_registration_form'):
   first_name = st.text_input('Your first name')
   last_name = st.text_input('Your last name')
-  email = st.text_input('Please type your GMAIL - must provide valid email; otherwise, the registration will be rejected')
+  email = st.text_input('We are using Google Meet for tutoring services. Please type your Gmail')
   num = st.text_input('Please provide valid number in case we need to reach you')  
 
   grade = st.selectbox('Your grade', ['Kinder', '1st', '2nd', '3rd'] + [str(i)+'th' for i in range(4, 13)])
