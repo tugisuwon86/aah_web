@@ -42,7 +42,7 @@ meta_col0, meta_col1, meta_col2 = st.columns(3)
 subjects = {'academic': ['English Conversation for International students', 'Elementary English & Language Arts', 
           'Middle School English & Language Arts', 'Elementary Math', 'Middle School Math', 'Pre-Algebra', 'Algebra I',
           'Algebra II', 'Geometry', 'Pre-Calculus', 'AP Calculus AB', 'AP Calculus BC', 'Beginner Spanish', 'Advanced Spanish', 
-          'SAT', 'ACT'], 
+          'SAT', 'ACT', 'Learning Lab'], 
   'Computer Science': ['Scratch', 'HTML/CSS', 'General Programming Concepts', 'Intro to Python', 'Intermediate/Advanced Python', 
                       'Intro to JAVA', 'Intermediate/Advanced JAVA']
 }
