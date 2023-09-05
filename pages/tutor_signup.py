@@ -129,7 +129,7 @@ taken = df.loc[(df['Email'] == email_) & (df['Date'] == str(tutor_date))] # alre
 taken_hours = taken.Schedule.values
 available = tutor_option_2 .loc[(tutor_option_2 ['Email'] == email_) & (~tutor_option_2 ['Schedule'].isin(taken_hours))] # filtered by day of week and email
 
-option = st.selectbox('Please choose the time slot you want to schedule: ', sorted(available['Schedule'].values))
+#option = st.selectbox('Please choose the time slot you want to schedule: ', sorted(available['Schedule'].values))
 #st.write('You selected: ' + option)
 
 with st.form('save_form'):
@@ -140,7 +140,7 @@ check_ = df_student[(df_student['email'] == email) & (df_student['complete'] == 
 #print(check_, tutor, option)
 #print(df.head())
 
-def mailing(tutor, subject, email_, option, tutor_date, email):
+def mailing(tutor, subject, email_, tutor_time, tutor_date, email):
     import yagmail
     GMAIL = yagmail.SMTP("aahtutoringscheduler@gmail.com", "@RQu&S56pAS1")
 
@@ -192,8 +192,8 @@ if save_submitted:
         # df.loc[index[0], 'Student Email'] = email
 
         #Name	Subject	Email	Schedule	Date	Student Email
-        rows = [[tutor, subject, email_, option, str(tutor_date), email]]
-        mailing(tutor, subject, email_, option, str(tutor_date), email)
+        rows = [[tutor, subject, email_, tutor_time, str(tutor_date), email]]
+        mailing(tutor, subject, email_, tutor_time, str(tutor_date), email)
         df = pd.concat([df, pd.DataFrame(rows, columns=df.columns.values.tolist())])
         wks_schedule.update([df.columns.values.tolist()] + df.values.tolist())
         st.success('You are booked! Please check your email for the confirmation', icon="✅")
