@@ -63,6 +63,7 @@ password = st.text_input('Password')
 st.write('Your email address is: ', email)
 
 if email in admins and admins[email] == password:
+    NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
     start_date = meta_col0.date_input("Start Date", (NOW-dt.timedelta(years=2)).date(), min_value=(NOW-dt.timedelta(years=2)).date(), max_value=NOW)
     end_date = meta_col1.date_input("End Date", NOW, min_value=(NOW-dt.timedelta(years=2)).date(), max_value=NOW)
     tutor_name = meta_co2.selectbox("Select tutor", tuple(tutors))
@@ -80,10 +81,3 @@ elif email not in admins:
 elif email in admins and admins[email] != password:
     st.error("Wrong password")
 
-
-NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
-tutor_date = meta_col1.date_input("Tutor Date", NOW, min_value=NOW, max_value=(NOW+dt.timedelta(days=14)).date())
-# convert tutor_date to day of week
-tutor_dow = tutor_date.weekday()
-dow_mapping = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
-#st.write(tutor_date, str(tutor_date), tutor_dow)
