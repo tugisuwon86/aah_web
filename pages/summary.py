@@ -76,8 +76,8 @@ if email in admins and admins[email] == password:
         df = df[df['Name'] == tutor_name]
     st.dataframe(df)
     if df.shape[0] > 0:
-        df_summary = df.groupby(['Name'])['Name'].count().reset_index()
-        df_summary.columns = ['Name', '# of Hours Tutored']
+        df_summary = df.groupby(['Name'])['Name'].count()#.reset_index()
+        #df_summary.columns = ['Name', '# of Hours Tutored']
     
         st.dataframe(df_summary)
     else:
