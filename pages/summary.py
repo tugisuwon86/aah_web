@@ -31,7 +31,58 @@ show_pages(
         Section(name="Class Update", icon="💪"),    
         # Page("pages/cancel_session.py", "Student Registration"),
         Page("pages/complete_session.py", "Follow up"),
+        Page("pages/summary.py", "Summary"),
     ]
 )
 add_page_title() # By default this also adds indentation
 
+meta_col0, meta_col1, meta_col2 = st.columns(3)
+# ---------------------------------------------------------------------------------------------------------
+                
+# ---------------------------------------------------------------------------------------------------------
+## ADMIN!
+admins = {"tugisuwon@gmail.com": "123456",
+         }
+
+# Read data from google sheets to initiate
+import gspread
+
+credentials = st.secrets['gcp_service_account']
+sa = gspread.service_account_from_dict(credentials)
+sh = sa.open("AAh schedules")
+
+wks_schedule = sh.worksheet("Tutor Student Matching")
+
+# read google sheets as dataframe
+df = pd.DataFrame(wks_schedule.get_all_records())
+tutors = ["All"] + list(set(df.Name))
+
+email = st.text_input('Please type your admin email')
+password = st.text_input('Password')
+st.write('Your email address is: ', email)
+
+if email in admins and admins[email] == password:
+    start_date = meta_col0.date_input("Start Date", (NOW-dt.timedelta(years=2)).date(), min_value=(NOW-dt.timedelta(years=2)).date(), max_value=NOW)
+    end_date = meta_col1.date_input("End Date", NOW, min_value=(NOW-dt.timedelta(years=2)).date(), max_value=NOW)
+    tutor_name = meta_co2.selectbox("Select tutor", tuple(tutors))
+
+    df = df[(df['date'] >= start_date) & (df['date'] <= end_date)]
+    if tutor_name != 'All':
+        df = df[df['Name'] == tutor_name]
+    df_summary = df.groupby(['Name'])['Name'].count().reset_index()
+    df_summary.columns = ['Name', '# of Hours Tutored']
+
+    st.dataframe(df_summary)
+    
+elif email not in admins:
+    st.error("You are not one of our admins")
+elif email in admins and admins[email] != password:
+    st.error("Wrong password")
+
+
+NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
+tutor_date = meta_col1.date_input("Tutor Date", NOW, min_value=NOW, max_value=(NOW+dt.timedelta(days=14)).date())
+# convert tutor_date to day of week
+tutor_dow = tutor_date.weekday()
+dow_mapping = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
+#st.write(tutor_date, str(tutor_date), tutor_dow)
