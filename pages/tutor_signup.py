@@ -215,7 +215,7 @@ if save_submitted:
         # df.loc[index[0], 'Student Email'] = email
 
         #Name	Subject	Email	Schedule	Date	Student Email
-        rows = [[tutor, subject, email_, tutor_time, str(tutor_date), email]]
+        rows = [[tutor, subject, email_, tutor_time, str(tutor_date), email, 'N', 'N']]
         mailing(tutor, subject, email_, tutor_time, str(tutor_date), email)
         df = pd.concat([df, pd.DataFrame(rows, columns=df.columns.values.tolist())])
         wks_schedule.update([df.columns.values.tolist()] + df.values.tolist())
