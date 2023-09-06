@@ -73,10 +73,10 @@ if email in admins and admins[email] == password:
     #df = df[(df['date'] >= str(start_date)[:10]) & (df['date'] <= str(end_date)[:10])]
     if tutor_name != "All":
         df = df[df['Name'] == tutor_name]
-    df_summary = df.groupby(['Name'])['Name'].count().reset_index()
-    df_summary.columns = ['Name', '# of Hours Tutored']
+    #df_summary = df.groupby(['Name'])['Name'].count().reset_index()
+    #df_summary.columns = ['Name', '# of Hours Tutored']
 
-    st.dataframe(df_summary)
+    st.dataframe(df)
     
 elif email not in admins:
     st.error("You are not one of our admins")
