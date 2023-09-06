@@ -67,9 +67,10 @@ if email in admins and admins[email] == password:
     NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
     start_date = meta_col0.date_input("Start Date", (NOW-dt.timedelta(days=730)).date(), min_value=(NOW-dt.timedelta(days=730)).date(), max_value=NOW)
     end_date = meta_col1.date_input("End Date", NOW, min_value=(NOW-dt.timedelta(days=730)).date(), max_value=NOW)
-    tutor_name = "All" #meta_co2.selectbox("Select tutor", tuple(tutors))
+    tutor_name = meta_co2.selectbox("Select tutor", tutors)
 
-    df = df[(df['date'] >= start_date) & (df['date'] <= end_date)]
+    print(start_date, end_date)
+    df = df[(df['date'] >= str(start_date)[:10]) & (df['date'] <= str(end_date)[:10])]
     if tutor_name != 'All':
         df = df[df['Name'] == tutor_name]
     df_summary = df.groupby(['Name'])['Name'].count().reset_index()
