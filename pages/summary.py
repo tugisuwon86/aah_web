@@ -56,7 +56,7 @@ wks_schedule = sh.worksheet("Tutor Student Matching")
 # read google sheets as dataframe
 df = pd.DataFrame(wks_schedule.get_all_records())
 df = df[(df['Tutor Confirm'] == 'Y') & (df['Student Confirm'] == 'Y')]
-tutors = ["All"] + list(set(df.Name))
+tutors = ["All"] + list(set(df.Name.values))
 
 email = st.text_input('Please type your admin email')
 password = st.text_input('Password')
