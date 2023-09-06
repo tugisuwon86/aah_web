@@ -68,16 +68,16 @@ if email in admins and admins[email] == password:
     start_date = meta_col0.date_input("Start Date", (NOW-dt.timedelta(days=730)).date(), min_value=(NOW-dt.timedelta(days=730)).date(), max_value=NOW)
     end_date = meta_col1.date_input("End Date", NOW, min_value=(NOW-dt.timedelta(days=730)).date(), max_value=NOW)
     tutor_name = "All" #meta_co2.selectbox("Select tutor", tutors)
-    st.write(tutors)
-    st.write(start_date, end_date)
-    st.write(list(df.columns))
+    #st.write(tutors)
+    #st.write(start_date, end_date)
+    #st.write(list(df.columns))
     df = df[(df['Date'] >= str(start_date)[:10]) & (df['Date'] <= str(end_date)[:10])]
     if tutor_name != "All":
         df = df[df['Name'] == tutor_name]
-    st.dataframe(df)
+    #st.dataframe(df)
     if df.shape[0] > 0:
         df_summary = df.groupby(['Name'])['Name'].count()#.reset_index()
-        #df_summary.columns = ['Name', '# of Hours Tutored']
+        df_summary.columns = ['# of Hours Tutored']
     
         st.dataframe(df_summary)
     else:
