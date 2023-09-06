@@ -70,7 +70,7 @@ if email in admins and admins[email] == password:
     tutor_name = "All" #meta_co2.selectbox("Select tutor", tutors)
     print(tutors)
     print(start_date, end_date)
-    df = df[(df['date'] >= str(start_date)[:10]) & (df['date'] <= str(end_date)[:10])]
+    #df = df[(df['date'] >= str(start_date)[:10]) & (df['date'] <= str(end_date)[:10])]
     if tutor_name != "All":
         df = df[df['Name'] == tutor_name]
     df_summary = df.groupby(['Name'])['Name'].count().reset_index()
