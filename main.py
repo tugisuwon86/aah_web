@@ -19,7 +19,7 @@ show_pages(
         
         Section(name="For Students Only", icon="💪"),    
         Page("pages/student_registration.py", "Student Registration"),
-        Page("pages/tutor_signup.py", "Tutor Sign Up"),
+        Page("pages/tutor_signup.py", "Sing up for a session"),
     ]
 )
 add_page_title() # By default this also adds indentation
