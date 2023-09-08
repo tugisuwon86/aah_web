@@ -40,11 +40,11 @@ add_page_title() # By default this also adds indentation
 meta_col0, meta_col1, meta_col2 = st.columns(3)
 
 
-subjects = {'academic': ['English Conversation for International students', 'Elementary English & Language Arts', 
+subjects = {'academic': ['', 'English Conversation for International students', 'Elementary English & Language Arts', 
           'Middle School English & Language Arts', 'Elementary Math', 'Middle School Math', 'Pre-Algebra', 'Algebra I',
           'Algebra II', 'Geometry', 'Pre-Calculus', 'AP Calculus AB', 'AP Calculus BC', 'Beginner Spanish', 'Advanced Spanish', 
           'SAT', 'ACT', 'Learning Lab'], 
-  'Computer Science': ['Scratch', 'HTML/CSS', 'General Programming Concepts', 'Intro to Python', 'Intermediate/Advanced Python', 
+  'Computer Science': ['', 'Scratch', 'HTML/CSS', 'General Programming Concepts', 'Intro to Python', 'Intermediate/Advanced Python', 
                       'Intro to JAVA', 'Intermediate/Advanced JAVA']
 }
 # ---------------------------------------------------------------------------------------------------------
@@ -74,14 +74,15 @@ with st.form('tutor_registration_form'):
   telephone = st.text_input('Please provide valid number in case we need to reach you')
   
   #subjects = json.load(open('subjects.json'))
-    
+
+  st.write('Choose as many as possible by selecting all -> leave it as blank if not!)
   math_subjects = st.multiselect('Which subject would you like to teach?', subjects['academic'])
   eng_subjects = st.multiselect('Which computer science subject would you like to teach?', subjects['Computer Science'])
 
       
   # convert array of subjects to string
-  math_subjects = ','.join(math_subjects)
-  eng_subjects = ','.join(eng_subjects)
+  math_subjects = ','.join([xx for xx in math_subjects if xx != ''])
+  eng_subjects = ','.join([xx for xx in eng_subjects if xx != ''])
 
   st.divider()  # 👈 Draws a horizontal rule
   st.write("Please send an email to freetutoring@americanassimilationhelpline.org with photo ID to complete the registration!")
