@@ -75,7 +75,7 @@ with st.form('tutor_registration_form'):
   
   #subjects = json.load(open('subjects.json'))
 
-  st.write('Choose as many as possible by selecting all -> leave it as blank if not!)
+  st.write('Choose as many as possible by selecting all -> leave it as blank if not!')
   math_subjects = st.multiselect('Which subject would you like to teach?', subjects['academic'])
   eng_subjects = st.multiselect('Which computer science subject would you like to teach?', subjects['Computer Science'])
 
