@@ -145,36 +145,16 @@ check_ = df_student[(df_student['email'] == email) & (df_student['complete'] == 
 #print(check_, tutor, option)
 #print(df.head())
 
-def mailing(tutor, subject, email_, tutor_time, tutor_date, email):
+def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     import smtplib
 
     # Import the email modules we'll need
-    from email.mime.text import MIMEText
-    
-    # Open a plain text file for reading.  For this example, assume that
-    # the text file contains only ASCII characters.
-    with open(textfile, 'rb') as fp:
-        # Create a text/plain message
-        msg = MIMEText(fp.read())
-    
-    # me == the sender's email address
-    # you == the recipient's email address
-    msg['Subject'] = 'The contents of %s' % textfile
-    msg['From'] = me
-    msg['To'] = you
-    
-    # Send the message via our own SMTP server, but don't include the
-    # envelope header.
-    s = smtplib.SMTP('localhost')
-    s.sendmail(me, [you], msg.as_string())
-    s.quit()
-    
-    import yagmail
-    GMAIL = yagmail.SMTP("aahtutoringscheduler@gmail.com", "@RQu&S56pAS1")
+    from email.message import EmailMessage
 
-    subject = f'AAH Tutoring Schedule Confirmation'
-    
-    body_1 = f"""
+    msg['Subject'] = f'AAH Tutoring Schedule Confirmation'
+    msg['From'] = 'aahtutoringscheduler@gmail.com'
+    msg['To'] = email_tutor
+    msg.preamble = f"""
     Hello, 
 
     You have signed up for the following tutor session:
@@ -186,13 +166,13 @@ def mailing(tutor, subject, email_, tutor_time, tutor_date, email):
     
     """[1:]
     
-    signature = """\n
-    <span  style="font-family: monospace; font-size: 9pt">Auto-generated message sent from the aah-tutor</span>
-    """[:-1]
-    
-    GMAIL.send(to=email, subject=subject, contents=[body_1, signature])
+    # Send the message via our own SMTP server, but don't include the
+    # envelope header.
+    with smtplib.SMTP('localhost') as s:
+        s.send_message(msg)
 
-    body_2 = f"""
+    msg['To'] = email_student
+    msg.preamble = f"""
     Hello, 
 
     Student has signed up for the following tutor session:
@@ -202,14 +182,10 @@ def mailing(tutor, subject, email_, tutor_time, tutor_date, email):
     If you are not available at this time, please send email to freetutoring@americanassimilationhelpline.org. Please reach out to {email} with google meet link before the session. Thanks.
     
     """[1:]
+    with smtplib.SMTP('localhost') as s:
+        s.send_message(msg)
     
-    signature = """\n
-    <span  style="font-family: monospace; font-size: 9pt">Auto-generated message sent from the aah-tutor</span>
-    """[:-1]
-    
-
-    GMAIL.send(to=email_, subject=subject, contents=[body_2, signature])
-pw = '@RQu&S56pAS1'
+# pw = '@RQu&S56pAS1'
 
 if save_submitted:
     if number_of_booking.shape[0] >= 2:
