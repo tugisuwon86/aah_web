@@ -96,23 +96,23 @@ with st.form('tutor_registration_form'):
 3) click on the i in a circle and copy the info
 4) paste it in the email to your student
 
--Tutor can sign up for a session whenever you are available. There is no minimum or maximum number of sessions required for volunteers.
+- Tutor can sign up for a session whenever you are available. There is no minimum or maximum number of sessions required for volunteers.
 
--Tutor must turn on your camera while you are in your session. 
+- Tutor must turn on your camera while you are in your session. 
 
--Tutor can find our teaching materials for your session from our website. 
+- Tutor can find our teaching materials for your session from our website. 
 For academic resources: https://www.americanassimilationhelpline.org/get_involved
 For Computer Science resources: 
 https://www.americanassimilationhelpline.org/coding
 Your student might bring their own material they want to work on. 
 
--If you are tutoring English conversation, use or download Google Translate to translate English to your student's language - this allows for effective communication with your student. (for instance, Brazil's primary language is Portuguese)
+- If you are tutoring English conversation, use or download Google Translate to translate English to your student's language - this allows for effective communication with your student. (for instance, Brazil's primary language is Portuguese)
 
--Take a screenshot during each session with you and your student and email us at Freetutoring@americanassimilationhelpline.org. We use this to confirm your session took place for your volunteer hours. Take the picture at the beginning of your session to ensure you don't forget.
+- Take a screenshot during each session with you and your student and email us at Freetutoring@americanassimilationhelpline.org. We use this to confirm your session took place for your volunteer hours. Take the picture at the beginning of your session to ensure you don't forget.
 
--You need to download WhatsApp! We communicate through it. Every registered tutor will be added to one of our WhatsApp tutor group chats. 
+- You need to download WhatsApp! We communicate through it. Every registered tutor will be added to one of our WhatsApp tutor group chats. 
 
--Record your volunteer hours to confirm them with us. 
+- Record your volunteer hours to confirm them with us. 
   '''
   st.markdown(para)
     
