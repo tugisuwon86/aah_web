@@ -33,6 +33,47 @@ meta_col0, meta_col1, meta_col2, meta_col3 = st.columns(4)
 # ---------------------------------------------------------------------------------------------------------
                 
 # ---------------------------------------------------------------------------------------------------------
+
+def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
+    import smtplib
+
+    # Import the email modules we'll need
+    from email.message import EmailMessage
+
+    msg['Subject'] = f'AAH Tutoring Schedule Confirmation'
+    msg['From'] = 'aahtutoringscheduler@gmail.com'
+    msg['To'] = email_tutor
+    msg.preamble = f"""
+    Hello, 
+
+    You have signed up for the following tutor session:
+    Tutor: {tutor}
+    Subject: {subject}
+    Datetime: {tutor_date}
+
+    If you need to cancel/reschedule, please send email to freetutoring@americanassimilationhelpline.org. Your tutor will reach out with google meet link prior to the sessions. Thanks.
+    
+    """[1:]
+    
+    # Send the message via our own SMTP server, but don't include the
+    # envelope header.
+    with smtplib.SMTP('localhost') as s:
+        s.send_message(msg)
+
+    msg['To'] = email_student
+    msg.preamble = f"""
+    Hello, 
+
+    Student has signed up for the following tutor session:
+    Subject: {subject}
+    Datetime: {tutor_date}
+
+    If you are not available at this time, please send email to freetutoring@americanassimilationhelpline.org. Please reach out to {email} with google meet link before the session. Thanks.
+    
+    """[1:]
+    with smtplib.SMTP('localhost') as s:
+        s.send_message(msg)
+
 # Read data from google sheets to initiate
 import gspread
 
@@ -164,45 +205,7 @@ else:
     st.write('Please choose your tutor')
 
 
-def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
-    import smtplib
 
-    # Import the email modules we'll need
-    from email.message import EmailMessage
-
-    msg['Subject'] = f'AAH Tutoring Schedule Confirmation'
-    msg['From'] = 'aahtutoringscheduler@gmail.com'
-    msg['To'] = email_tutor
-    msg.preamble = f"""
-    Hello, 
-
-    You have signed up for the following tutor session:
-    Tutor: {tutor}
-    Subject: {subject}
-    Datetime: {tutor_date}
-
-    If you need to cancel/reschedule, please send email to freetutoring@americanassimilationhelpline.org. Your tutor will reach out with google meet link prior to the sessions. Thanks.
-    
-    """[1:]
-    
-    # Send the message via our own SMTP server, but don't include the
-    # envelope header.
-    with smtplib.SMTP('localhost') as s:
-        s.send_message(msg)
-
-    msg['To'] = email_student
-    msg.preamble = f"""
-    Hello, 
-
-    Student has signed up for the following tutor session:
-    Subject: {subject}
-    Datetime: {tutor_date}
-
-    If you are not available at this time, please send email to freetutoring@americanassimilationhelpline.org. Please reach out to {email} with google meet link before the session. Thanks.
-    
-    """[1:]
-    with smtplib.SMTP('localhost') as s:
-        s.send_message(msg)
     
 # pw = '@RQu&S56pAS1'
 
