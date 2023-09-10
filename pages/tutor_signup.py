@@ -39,7 +39,7 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
 
     connection = smtplib.SMTP('smtp.gamil.com', 587)
     connection.starttls()
-    connection.login('aahtutoringscheduler@gmail.com','@RQu&S56pAS1')
+    connection.login('aahtutoringscheduler@gmail.com','lnafzpcllnnpwtmk') #'@RQu&S56pAS1')
     message="Subject:{}\n\n{}".format('hello', 'test')
     connection.sendmail('aahtutoringscheduler@gmail.com', 'tugisuwon@gmail.com')
     connection.quit()
