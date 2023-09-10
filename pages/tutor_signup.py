@@ -49,6 +49,7 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     If you need to cancel/reschedule, please send email to freetutoring@americanassimilationhelpline.org. Your tutor will reach out with google meet link prior to the sessions. Thanks.
     
     """[1:])
+    msg['Subject'] = 'AAH Tutoring Schedule Confirmation'
     connection = smtplib.SMTP('smtp.gmail.com', 587)
     connection.starttls()
     connection.login('aahtutoringscheduler@gmail.com','qdqrhbtswkkemzlw')#'lnafzpcllnnpwtmk') #'@RQu&S56pAS1')
@@ -87,6 +88,7 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     If you are not available at this time, please send email to freetutoring@americanassimilationhelpline.org. Please reach out to {email_student} with google meet link before the session. Thanks.
     
     """[1:])
+    msg['Subject'] = 'AAH Tutoring Schedule Confirmation'
     connection = smtplib.SMTP('smtp.gmail.com', 587)
     connection.starttls()
     connection.login('aahtutoringscheduler@gmail.com','qdqrhbtswkkemzlw')#'lnafzpcllnnpwtmk') #'@RQu&S56pAS1')
