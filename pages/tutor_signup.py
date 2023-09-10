@@ -125,25 +125,44 @@ tutor = meta_col3.selectbox('Tutor', tutor_option)
 #st.write('tutor: ' + tutor)
 if tutor in email_mapping:
     email_ = email_mapping[tutor]
+
+    # ---------------------------------------------------------------------------------------------------------
+    #st.write('date: ', str(tutor_date))
+    taken = df.loc[(df['Email'] == email_) & (df['Date'] == str(tutor_date))] # already taken
+    taken_hours = taken.Schedule.values
+    available = tutor_option_2 .loc[(tutor_option_2 ['Email'] == email_) & (~tutor_option_2 ['Schedule'].isin(taken_hours))] # filtered by day of week and email
+    
+    #option = st.selectbox('Please choose the time slot you want to schedule: ', sorted(available['Schedule'].values))
+    #st.write('You selected: ' + option)
+    
+    with st.form('save_form'):
+        save_submitted = st.form_submit_button('Please click to book the slot')
+    
+    # make sure the student is in our system
+    check_ = df_student[(df_student['email'] == email) & (df_student['complete'] == 'Y')]
+    #print(check_, tutor, option)
+    #print(df.head())
+
+    if save_submitted:
+        if number_of_booking.shape[0] >= 2:
+            st.error('You booked more than the number of weekly limit', icon="🚨")
+        elif check_.shape[0] > 0:
+            # index = df.index[(df['Name'] == tutor) & (df['Schedule'] == option)].to_list()
+            # df.loc[index[0], 'Available'] = 'N' # it's not available anymore!
+            # df.loc[index[0], 'Student Email'] = email
+    
+            #Name	Subject	Email	Schedule	Date	Student Email
+            rows = [[tutor, subject, email_, tutor_time, str(tutor_date), email, 'N', 'N']]
+            mailing(tutor, subject, email_, tutor_time, str(tutor_date), email)
+            df = pd.concat([df, pd.DataFrame(rows, columns=df.columns.values.tolist())])
+            wks_schedule.update([df.columns.values.tolist()] + df.values.tolist())
+            st.success('You are booked! Please check your email for the confirmation', icon="✅")
+        elif check_.shape[0] == 0:
+            st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
+
 else:
     st.write('Please choose your tutor')
 
-# ---------------------------------------------------------------------------------------------------------
-#st.write('date: ', str(tutor_date))
-taken = df.loc[(df['Email'] == email_) & (df['Date'] == str(tutor_date))] # already taken
-taken_hours = taken.Schedule.values
-available = tutor_option_2 .loc[(tutor_option_2 ['Email'] == email_) & (~tutor_option_2 ['Schedule'].isin(taken_hours))] # filtered by day of week and email
-
-#option = st.selectbox('Please choose the time slot you want to schedule: ', sorted(available['Schedule'].values))
-#st.write('You selected: ' + option)
-
-with st.form('save_form'):
-    save_submitted = st.form_submit_button('Please click to book the slot')
-
-# make sure the student is in our system
-check_ = df_student[(df_student['email'] == email) & (df_student['complete'] == 'Y')]
-#print(check_, tutor, option)
-#print(df.head())
 
 def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     import smtplib
@@ -186,22 +205,5 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
         s.send_message(msg)
     
 # pw = '@RQu&S56pAS1'
-
-if save_submitted:
-    if number_of_booking.shape[0] >= 2:
-        st.error('You booked more than the number of weekly limit', icon="🚨")
-    elif check_.shape[0] > 0:
-        # index = df.index[(df['Name'] == tutor) & (df['Schedule'] == option)].to_list()
-        # df.loc[index[0], 'Available'] = 'N' # it's not available anymore!
-        # df.loc[index[0], 'Student Email'] = email
-
-        #Name	Subject	Email	Schedule	Date	Student Email
-        rows = [[tutor, subject, email_, tutor_time, str(tutor_date), email, 'N', 'N']]
-        mailing(tutor, subject, email_, tutor_time, str(tutor_date), email)
-        df = pd.concat([df, pd.DataFrame(rows, columns=df.columns.values.tolist())])
-        wks_schedule.update([df.columns.values.tolist()] + df.values.tolist())
-        st.success('You are booked! Please check your email for the confirmation', icon="✅")
-    elif check_.shape[0] == 0:
-        st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
 
 
