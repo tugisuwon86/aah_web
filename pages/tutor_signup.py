@@ -36,12 +36,13 @@ meta_col0, meta_col1, meta_col2, meta_col3 = st.columns(4)
 
 def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     import smtplib
+    from email.mime.text import MIMEText
 
+    msg = MIMEText('test')
     connection = smtplib.SMTP('smtp.gamil.com', 587)
     connection.starttls()
-    connection.login('aahtutoringscheduler@gmail.com','lnafzpcllnnpwtmk') #'@RQu&S56pAS1')
-    message="Subject:{}\n\n{}".format('hello', 'test')
-    connection.sendmail('aahtutoringscheduler@gmail.com', 'tugisuwon@gmail.com')
+    connection.login('aahtutoringscheduler@gmail.com','clpbnylewwmntayr')#'lnafzpcllnnpwtmk') #'@RQu&S56pAS1')
+    connection.sendmail('aahtutoringscheduler@gmail.com', 'tugisuwon@gmail.com', msg.as_string())
     connection.quit()
 
     # # Import the email modules we'll need
