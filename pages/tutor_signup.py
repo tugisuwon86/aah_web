@@ -41,7 +41,7 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     msg = MIMEText('test')
     connection = smtplib.SMTP('smtp.gamil.com', 587)
     connection.starttls()
-    connection.login('aahtutoringscheduler@gmail.com','clpbnylewwmntayr')#'lnafzpcllnnpwtmk') #'@RQu&S56pAS1')
+    connection.login('aahtutoringscheduler@gmail.com','oetkwldtqpfssybo')#'lnafzpcllnnpwtmk') #'@RQu&S56pAS1')
     connection.sendmail('aahtutoringscheduler@gmail.com', 'tugisuwon@gmail.com', msg.as_string())
     connection.quit()
 
