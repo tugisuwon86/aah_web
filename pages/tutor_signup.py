@@ -39,7 +39,8 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
 
     # Import the email modules we'll need
     from email.message import EmailMessage
-
+    msg = EmailMessage()
+    
     msg['Subject'] = f'AAH Tutoring Schedule Confirmation'
     msg['From'] = 'aahtutoringscheduler@gmail.com'
     msg['To'] = email_tutor
@@ -60,6 +61,9 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     with smtplib.SMTP('localhost') as s:
         s.send_message(msg)
 
+    msg = EmailMessage()
+    msg['Subject'] = f'AAH Tutoring Schedule Confirmation'
+    msg['From'] = 'aahtutoringscheduler@gmail.com'
     msg['To'] = email_student
     msg.preamble = f"""
     Hello, 
