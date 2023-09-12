@@ -66,6 +66,12 @@ with st.form('tutor_registration_form'):
   st.write("Please send an email to freetutoring@americanassimilationhelpline.org with photo ID to complete the registration!")
   st.write("Students need to provide 1) Student ID or 2) Driver license - if you don't have one, please send us your parent's driver license to complete your registration")
   sent = st.checkbox('Sent email')
+
+  st.markdown('***COMMUNICATION***')
+  para = '''
+  Both tutor and student will receive an email (aahtutoringscheduler@gmail.com) from us with your student and tutor info. You won’t get an email from us if you don’t have your student. We match tutor and student by subjects and their availabilities. 
+  '''
+  st.markdown(para)
     
   submitted = st.form_submit_button("Submit tutor registration form")
   if submitted and sent:
