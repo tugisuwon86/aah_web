@@ -115,6 +115,12 @@ Your student might bring their own material they want to work on.
 - Record your volunteer hours to confirm them with us. 
   '''
   st.markdown(para)
+
+  st.markdown('***COMMUNICATION***')
+  para = '''
+  Both tutor and student will receive an email (aahtutoringscheduler@gmail.com) from us with your student and tutor info. You won’t get an email from us if you don’t have your student. We match tutor and student by subjects and their availabilities. 
+  '''
+  st.markdown(para)
     
   sent = st.checkbox('Sent email')
     
