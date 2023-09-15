@@ -188,7 +188,7 @@ elif number_of_booking.shape[0] >= 2:
 subjects_ = {'academic': ['English Conversation for International students', 'Elementary English & Language Arts', 
           'Middle School English & Language Arts', 'Elementary Math', 'Middle School Math', 'Pre-Algebra', 'Algebra I',
           'Algebra II', 'Geometry', 'Pre-Calculus', 'AP Calculus AB', 'AP Calculus BC', 'Beginner Spanish', 'Advanced Spanish', 
-          'SAT', 'ACT', 'Learning Lab'], 
+          'SAT', 'ACT', 'Learning Lab - (Do not select any subject we only offer in person section)'], 
   'Computer Science': ['Scratch', 'HTML/CSS', 'General Programming Concepts', 'Intro to Python', 'Intermediate/Advanced Python', 
                       'Intro to JAVA', 'Intermediate/Advanced JAVA']
 }
