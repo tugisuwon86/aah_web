@@ -84,7 +84,7 @@ with st.form('tutor_registration_form'):
       st.error('you are already registered!', icon="🚨")
     else:
       df_student.loc[len(df_student.index)] = [first_name, last_name, email, grade, country, num, school, 'N']
-      st.dataframe(df_student)
+      #st.dataframe(df_student)
       wks_student.update([df_student.columns.values.tolist()] + df_student.values.tolist())
       st.write("We received your registration! Please give us 24 hours to approve your registration!")
 
