@@ -76,7 +76,7 @@ with tab1:
     with st.form('teacher_form'):
         submitted = st.form_submit_button('Submit')
         if submitted:
-            wks_schedule.update_cell(complete1+1, 7, 'Y')
+            wks_schedule.update_cell(complete1+2, 7, 'Y')
             st.write('Updated!')
 with tab2:
     st.header('Student Follow up')
@@ -89,5 +89,5 @@ with tab2:
     with st.form('student_form'):
         submitted = st.form_submit_button('Submit')
         if submitted:
-            wks_schedule.update_cell(complete2+1, 8, 'Y')
+            wks_schedule.update_cell(complete2+2, 8, 'Y')
             st.write('Updated!')
