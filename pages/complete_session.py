@@ -72,6 +72,20 @@ with tab1:
 
     options = df_.index
     complete = st.selectbox('Which session did you complete?', options)
-    wks_schedule.update_cell(complete, 6, 'Y')
+    with st.form('teacher_form'):
+        submitted = stform_submit_button('Submit')
+        if submitted:
+            wks_schedule.update_cell(complete, 6, 'Y')
+            st.write('Updated!')
 with tab2:
     st.header('Student Follow up')
+    df_ = df[(df_schedule['Student Email'] == email) & (df['Student Confirm'] == 'N')]
+    st.table(df_[['Name', 'Subject', 'Schedule', 'Date']])
+
+    options = df_.index
+    complete = st.selectbox('Which session did you complete?', options)
+    with st.form('student_form'):
+        submitted = stform_submit_button('Submit')
+        if submitted:
+            wks_schedule.update_cell(complete, 7, 'Y')
+            st.write('Updated!')
