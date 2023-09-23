@@ -218,7 +218,7 @@ tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject))
 tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow))] #== dow_mapping[tutor_dow] + " : " + tutor_time)]
 
 options = [x[0] + ' || ' + x[2] for x in tutor_option_2.values]
-session = st.selectbox("Choose the session", options)
+session = st.selectbox("Choose the session - everything is in EDT timezone", options)
 print('---------------------------')
 st.table(tutor_option_2)
 name_mapping, email_mapping = {}, {}
