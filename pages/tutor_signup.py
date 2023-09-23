@@ -172,7 +172,7 @@ st.write('Your status summary---------')
 # make sure the student is in our system
 NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
 check_ = df_student[(df_student['email'] == email) & (df_student['complete'] == 'Y')]
-number_of_booking = df[df['Student Email'] == email]
+number_of_booking = df[(df['Student Email'] == email) & (df['Date'] >= NOW.date())]
 st.table(number_of_booking)
 #number_of_bookng
 
