@@ -46,7 +46,7 @@ st.write('Make sure your email address if accurate before proceeding; otherwise,
 
 action = st.radio('Choose one', ['New registration/Update schedule', 'Vacation/Absense plan'], horizontal=True)
 NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
-options = [str(i)+' PM -'+str(i+1) + ' PM'for i in range(2, 12)]
+options = [str(i)+' PM -'+str(i+1) + ' PM'for i in range(12, 12)] + [str(i)+' AM -'+str(i+1) + ' AM'for i in range(12, 12)]
 
 if action == 'New registration/Update schedule':
     options_Monday = st.multiselect(
