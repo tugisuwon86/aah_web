@@ -72,11 +72,11 @@ with tab1:
     st.table(df_[['Name', 'Subject', 'Schedule', 'Date']])
 
     options = df_.index
-    complete = st.selectbox('Which session did you complete?', options)
+    complete1 = st.selectbox('Which session did you complete with your student?', options)
     with st.form('teacher_form'):
         submitted = st.form_submit_button('Submit')
         if submitted:
-            wks_schedule.update_cell(complete+1, 7, 'Y')
+            wks_schedule.update_cell(complete1+1, 7, 'Y')
             st.write('Updated!')
 with tab2:
     st.header('Student Follow up')
@@ -85,9 +85,9 @@ with tab2:
     st.table(df_[['Name', 'Subject', 'Schedule', 'Date']])
 
     options = df_.index
-    complete = st.selectbox('Which session did you complete?', options)
+    complete2 = st.selectbox('Which session did you complete with your teacher?', options)
     with st.form('student_form'):
         submitted = st.form_submit_button('Submit')
         if submitted:
-            wks_schedule.update_cell(complete+1, 8, 'Y')
+            wks_schedule.update_cell(complete2+1, 8, 'Y')
             st.write('Updated!')
