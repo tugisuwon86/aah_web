@@ -61,7 +61,7 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
 
     Student has signed up for the following tutor session:
     Subject: {subject}
-    Datetime: {tutor_date} {tutor_time}
+    Datetime: {tutor_date} {tutor_time} EDT
 
     -We are using Google Meet for our online sessions (You need to have a Gmail account)
     1) go to meet.Google.com
@@ -108,7 +108,7 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     # You have signed up for the following tutor session:
     # Tutor: {tutor}
     # Subject: {subject}
-    # Datetime: {tutor_date}
+    # Datetime: {tutor_date} {tutor_time} EDT
 
     # If you need to cancel/reschedule, please send email to freetutoring@americanassimilationhelpline.org. Your tutor will reach out with google meet link prior to the sessions. Thanks.
     
@@ -207,7 +207,7 @@ while True:
         break
     NOW += dt.timedelta(days=1)
 tutor_date = NOW.date()
-st.write(f'The following tutors/time are available for {dow}: {tutor_date}')
+st.write(f'**The following tutors/time are available for {dow}: {tutor_date}**')
 st.write('Please choose different day of week if you cannot find the spot you want')
 #st.write(tutor_date, str(tutor_date), tutor_dow)
 
