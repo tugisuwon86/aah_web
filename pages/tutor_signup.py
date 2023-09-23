@@ -170,8 +170,11 @@ st.write('Make sure your email address if accurate before proceeding; otherwise,
 
 st.write('Your status summary---------')
 # make sure the student is in our system
+NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
 check_ = df_student[(df_student['email'] == email) & (df_student['complete'] == 'Y')]
 number_of_booking = df[df['Student Email'] == email]
+st.table(number_of_booking)
+#number_of_bookng
 
 current_booking = number_of_booking[['Name', 'Subject', 'Schedule']]
 current_booking.columns = ['Tutor Name', 'Subject', 'Schedule']
@@ -201,7 +204,6 @@ subject = meta_col0.selectbox('Subject', subjects_['academic'] + subjects_['Comp
 # tutor_dow = tutor_date.weekday()
 dow_mapping = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
 dow = meta_col1.selectbox('Day of Week', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
-NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
 while True:
     if dow_mapping[NOW.weekday()] == dow:
         break
