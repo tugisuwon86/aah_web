@@ -215,6 +215,9 @@ st.write('Please choose different day of week if you cannot find the spot you wa
 tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject)) | (df_tutor['english_subjects'].str.contains(subject)))]
 #st.table(tutor_option_1)
 tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow))] #== dow_mapping[tutor_dow] + " : " + tutor_time)]
+
+options = [x[0] + ' || ' + x[2] for x in tutor_option_2.values]
+session = st.selectbox("Choose the session", options)
 print('---------------------------')
 st.table(tutor_option_2)
 name_mapping, email_mapping = {}, {}
@@ -225,15 +228,16 @@ tutor_option = list(sorted(set(tutor_option_1.email.values) & set(tutor_option_2
 #print('tutor option', tutor_option)
 
 # make sure tutor is available by comparing it with tutor's absent schedule
-tutor_option_ = []
-for t in tutor_option:
-    if t in absent:
-        if absent[t][0] <= str(tutor_date) <= absent[t][1]:
-            continue
-    tutor_option_ += [t]
-tutor_option = [name_mapping[x] for x in tutor_option_]
-tutor = meta_col3.selectbox('Tutor', tutor_option)
+# tutor_option_ = []
+# for t in tutor_option:
+#     if t in absent:
+#         if absent[t][0] <= str(tutor_date) <= absent[t][1]:
+#             continue
+#     tutor_option_ += [t]
+# tutor_option = [name_mapping[x] for x in tutor_option_]
+# tutor = meta_col3.selectbox('Tutor', tutor_option)
 #st.write('tutor: ' + tutor)
+tutor, schedule = session.split(' || ')
 if tutor in email_mapping:
     email_ = email_mapping[tutor]
 
