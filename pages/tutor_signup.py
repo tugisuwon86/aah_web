@@ -239,6 +239,7 @@ tutor_option = list(sorted(set(tutor_option_1.email.values) & set(tutor_option_2
 # tutor = meta_col3.selectbox('Tutor', tutor_option)
 #st.write('tutor: ' + tutor)
 tutor, schedule = session.split(' || ')
+_, tutor_time = schedule.split(' : ')
 if tutor in email_mapping:
     email_ = email_mapping[tutor]
 
