@@ -206,7 +206,8 @@ while True:
     if dow_mapping[NOW.weekday()] == dow:
         break
     NOW += dt.timedelta(days=1)
-st.write(f'The following tutors/time are available for {dow}: {NOW}')
+tutor_date = NOW.date()
+st.write(f'The following tutors/time are available for {dow}: {tutor_date}')
 st.write('Please choose different day of week if you cannot find the spot you want')
 #st.write(tutor_date, str(tutor_date), tutor_dow)
 
