@@ -29,7 +29,7 @@ show_pages(
 )
 add_page_title() # By default this also adds indentation
 
-meta_col0, meta_col1, meta_col2, meta_col3 = st.columns(4)
+#meta_col0, meta_col1 = st.columns(2) #, meta_col2, meta_col3 = st.columns(4)
 # ---------------------------------------------------------------------------------------------------------
                 
 # ---------------------------------------------------------------------------------------------------------
@@ -195,20 +195,28 @@ subjects_ = {'academic': ['English Conversation for International students', 'El
 subject = meta_col0.selectbox('Subject', subjects_['academic'] + subjects_['Computer Science'])
 #subject_2 = meta_col0.selectbox('Computer Science Subject', subjects_['Computer Science'])
 
-NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
-tutor_date = meta_col1.date_input("Tutor Date", NOW, min_value=NOW, max_value=(NOW+dt.timedelta(days=14)).date())
-# convert tutor_date to day of week
-tutor_dow = tutor_date.weekday()
+# NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
+# tutor_date = meta_col1.date_input("Tutor Date", NOW, min_value=NOW, max_value=(NOW+dt.timedelta(days=14)).date())
+# # convert tutor_date to day of week
+# tutor_dow = tutor_date.weekday()
 dow_mapping = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
+dow = meta_col1.selectbox('Day of Week', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
+while True:
+    if dow_mapping[NOW.weekday()] == dow:
+        break
+    NOW += dt.timedelta(days=1)
+st.write(f'The following tutors/time are available for {dow}: {NOW}')
+st.write('Please choose different day of week if you cannot find the spot you want')
 #st.write(tutor_date, str(tutor_date), tutor_dow)
 
-tutor_time = meta_col2.selectbox('Time', [str(i)+' PM -'+str(i+1) + ' PM'for i in range(2, 10)])
+# tutor_time = meta_col2.selectbox('Time', [str(i)+' PM -'+str(i+1) + ' PM'for i in range(2, 10)])
 
 tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject)) | (df_tutor['english_subjects'].str.contains(subject)))]
 #st.table(tutor_option_1)
-tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'] == dow_mapping[tutor_dow] + " : " + tutor_time)]
+tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow))] #== dow_mapping[tutor_dow] + " : " + tutor_time)]
 print('---------------------------')
-#st.table(tutor_option_2)
+st.table(tutor_option_2)
 name_mapping, email_mapping = {}, {}
 for row in tutor_option_2[['Email', 'Name']].values:
     name_mapping[row[0]] = row[1]
