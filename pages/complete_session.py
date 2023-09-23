@@ -73,7 +73,7 @@ with tab1:
     options = df_.index
     complete = st.selectbox('Which session did you complete?', options)
     with st.form('teacher_form'):
-        submitted = stform_submit_button('Submit')
+        submitted = st.form_submit_button('Submit')
         if submitted:
             wks_schedule.update_cell(complete+1, 7, 'Y')
             st.write('Updated!')
@@ -85,7 +85,7 @@ with tab2:
     options = df_.index
     complete = st.selectbox('Which session did you complete?', options)
     with st.form('student_form'):
-        submitted = stform_submit_button('Submit')
+        submitted = st.form_submit_button('Submit')
         if submitted:
             wks_schedule.update_cell(complete+1, 8, 'Y')
             st.write('Updated!')
