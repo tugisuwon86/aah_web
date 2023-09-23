@@ -67,7 +67,7 @@ email = st.text_input('Please type your email (must match with email we have in 
 
 with tab1:
     st.header('Teacher Follow up')
-    df_ = df[(df_schedule['Email'] == email) & (df['Tutor Confirm'] == 'N')]
+    df_ = df[(df['Email'] == email) & (df['Tutor Confirm'] == 'N')]
     st.table(df_[['Name', 'Subject', 'Schedule', 'Date']])
 
     options = df_.index
@@ -79,7 +79,7 @@ with tab1:
             st.write('Updated!')
 with tab2:
     st.header('Student Follow up')
-    df_ = df[(df_schedule['Student Email'] == email) & (df['Student Confirm'] == 'N')]
+    df_ = df[(df['Student Email'] == email) & (df['Student Confirm'] == 'N')]
     st.table(df_[['Name', 'Subject', 'Schedule', 'Date']])
 
     options = df_.index
