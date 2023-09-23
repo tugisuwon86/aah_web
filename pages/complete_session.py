@@ -68,9 +68,9 @@ email = st.text_input('Please type your email (must match with email we have in 
 with tab1:
     st.header('Teacher Follow up')
     df_ = df[(df_schedule['Email'] == email) & (df['Tutor Confirm'] == 'N')]
-    st.table(df_)
+    st.table(df_[['Name', 'Subject', 'Schedule', 'Date']])
 
-    options = [f'Date {x[4]}, Time {x[3]}, Subject {x[1]} for x in df_.values']
+    options = df_.index
     complete = st.selectbox('Which session did you complete?', options)
     
 with tab2:
