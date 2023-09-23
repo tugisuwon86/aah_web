@@ -72,6 +72,6 @@ with tab1:
 
     options = df_.index
     complete = st.selectbox('Which session did you complete?', options)
-    
+    wks_schedule.update_cell(complete, 6, 'Y')
 with tab2:
     st.header('Student Follow up')
