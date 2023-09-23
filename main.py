@@ -30,6 +30,7 @@ st.markdown(
     """
     
     **👈 Select the option from the left sidebar to proceed!
+    **👈 (Mobile Users!) Click a little arrow from top left to view the menu!
     ### Tutors
     - Please complete your registration first before participating in tutor program!
     - You must send us the email with photo ID (i.e. student ID) to complete the registration
