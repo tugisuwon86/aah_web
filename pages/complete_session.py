@@ -63,11 +63,12 @@ for row in df_schedule.values:
 #print('absent', absent)
 
 tab1, tab2 = st.tabs(['Teacher', 'Student'])
-email = st.text_input('Please type your email (must match with email we have in our system')
+
 
 with tab1:
     st.header('Teacher Follow up')
-    df_ = df[(df['Email'] == email) & (df['Tutor Confirm'] == 'N')]
+    email1 = st.text_input('Please type your email (must match with email we have in our system')
+    df_ = df[(df['Email'] == email1) & (df['Tutor Confirm'] == 'N')]
     st.table(df_[['Name', 'Subject', 'Schedule', 'Date']])
 
     options = df_.index
@@ -79,7 +80,8 @@ with tab1:
             st.write('Updated!')
 with tab2:
     st.header('Student Follow up')
-    df_ = df[(df['Student Email'] == email) & (df['Student Confirm'] == 'N')]
+    email2 = st.text_input('Please type your email (must match with email we have in our system')
+    df_ = df[(df['Student Email'] == email2) & (df['Student Confirm'] == 'N')]
     st.table(df_[['Name', 'Subject', 'Schedule', 'Date']])
 
     options = df_.index
