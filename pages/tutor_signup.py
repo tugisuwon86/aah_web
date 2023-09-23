@@ -29,7 +29,7 @@ show_pages(
 )
 add_page_title() # By default this also adds indentation
 
-#meta_col0, meta_col1 = st.columns(2) #, meta_col2, meta_col3 = st.columns(4)
+meta_col0, meta_col1 = st.columns(2) #, meta_col2, meta_col3 = st.columns(4)
 # ---------------------------------------------------------------------------------------------------------
                 
 # ---------------------------------------------------------------------------------------------------------
