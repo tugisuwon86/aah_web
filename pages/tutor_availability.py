@@ -46,7 +46,7 @@ st.write('Make sure your email address if accurate before proceeding; otherwise,
 
 action = st.radio('Choose one', ['New registration/Update schedule', 'Vacation/Absense plan'], horizontal=True)
 NOW = (dt.datetime.utcnow()).replace(hour=0, minute=0, second=0, microsecond=0)
-options = [str(i)+' PM -'+str(i+1) + ' PM'for i in range(12, 12)] + [str(i)+' AM -'+str(i+1) + ' AM'for i in range(12, 12)]
+options = [str(i)+' PM -'+str(i+1) + ' PM' for i in range(12, 12)] + [str(i)+' AM -'+str(i+1) + ' AM' for i in range(12, 12)]
 
 if action == 'New registration/Update schedule':
     options_Monday = st.multiselect(
@@ -107,7 +107,7 @@ wks_absense = sh.worksheet("Tutors Absense") #email, start_date, end_date
 df = pd.DataFrame(wks_schedule.get_all_records())
 df_tutor = pd.DataFrame(wks_tutor.get_all_records())
 df_absense = pd.DataFrame(wks_absense.get_all_records())
-st.write(df_absense.shape)
+#st.write(df_absense.shape)
 
 check_ = df_tutor[(df_tutor['email'] == email) & (df_tutor['complete'] == 'Y')]
 if check_.shape[0] > 0 and save_submitted:
@@ -117,14 +117,14 @@ if check_.shape[0] > 0 and save_submitted:
         wks_schedule.clear()
     
         # overwrite if exists
-        print(list(df.columns))
+        #print(list(df.columns))
         df = df[df['Email'] != email]
         rows = []
         for dow, options in zip(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], [options_Monday, options_Tuesday, options_Wednesday, options_Thursday, options_Friday, options_Saturday, options_Sunday]):
             for r in options:
                 rows += [[name, email, dow + ' : ' + r]]
         schedule = pd.concat([df, pd.DataFrame(rows, columns=['Name', 'Email', 'Schedule'])])
-        print(schedule.head(5))
+        #print(schedule.head(5))
         wks_schedule.update([schedule.columns.values.tolist()] + schedule.values.tolist())
     else:
         # clear worksheet first
