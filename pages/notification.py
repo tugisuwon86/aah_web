@@ -31,8 +31,8 @@ show_pages(
         Section(name="Class Update", icon="💪"),    
         # Page("pages/cancel_session.py", "Student Registration"),
         Page("pages/complete_session.py", "Follow up"),
-        Page("pages/summary.py", "Summary - Admin Only"),
-        Page("pages/notification.py", "Notification - Admin Only"), 
+        Page("pages/summary.py", "Summary"),
+        Page("pages/notification.py", "Notification"),
     ]
 )
 add_page_title() # By default this also adds indentation
