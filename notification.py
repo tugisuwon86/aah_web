@@ -49,6 +49,34 @@ subjects = {'academic': ['', 'English Conversation for International students', 
                       'Intro to JAVA', 'Intermediate/Advanced JAVA']
 }
 # ---------------------------------------------------------------------------------------------------------
+
+def mailing(subject, name, email_):
+    import smtplib
+    from email.mime.text import MIMEText
+
+    msg1 = MIMEText(f"""
+    Hello {name}, 
+
+    Your account is now active. Please visit https://aah-tutors.streamlit.app/Tutor%20Availability%20Update to add/update your schedule for tutoring. 
+
+    
+    """[1:])
+
+    msg2 = MIMEText(f"""
+    Hello {name}, 
+
+    Your account is now active. Please visit https://aah-tutors.streamlit.app/Sign%20up%20for%20a%20session to sign up for your first session.
+
+    
+    """[1:])
+    msg['Subject'] = 'AAH Account Approval'
+    connection = smtplib.SMTP('smtp.gmail.com', 587)
+    connection.starttls()
+    connection.login('aahtutoringscheduler@gmail.com','qdqrhbtswkkemzlw')#'lnafzpcllnnpwtmk') #'@RQu&S56pAS1')
+    connection.sendmail('aahtutoringscheduler@gmail.com', email_, msg.as_string())
+    connection.quit()
+
+
 # Read data from google sheets to initiate
 import gspread
 
@@ -57,11 +85,11 @@ sa = gspread.service_account_from_dict(credentials)
 sh = sa.open("AAh schedules")
 
 wks_tutor = sh.worksheet("Tutors_Registration")
+wks_student = sh.worksheet("Students_Registration")
 
 # read google sheets as dataframe
+df_student = pd.DataFrame(wks_student.get_all_records())
 df_tutor = pd.DataFrame(wks_tutor.get_all_records())
-# st.dataframe(df_tutor)
-
 
 name = st.text_input('Enter admin username')
 password = st.text_input('Enter password')
@@ -71,13 +99,31 @@ if name == 'Admin' and password == 'aahAdmin123':
   with st.form('tutor_registration_form'):
     
       
-    submitted = st.form_submit_button("Send email to approved tutors")
+    submitted = st.form_submit_button("Send email to approved tutors and students")
     if submitted:
-      
-        df_tutor.loc[len(df_tutor.index)] = [first_name, last_name, email, grade, country, referral, school, telephone, math_subjects, eng_subjects, 'N']
-        #st.dataframe(df_tutor)
+        output = []
+        for row in df_tutor[(df_tutor['complete'] == 'Y') & (df_tutor['approval_email'] == 'N')].values:
+            email_ = row[2]
+            name_ = row[0]
+            mailing('', name_, email_)
+            row[-1] = 'Y'
+            output += [row]
+        df_tutor = pd.DataFrame(output, columns = df_tutor.columns)
         wks_tutor.update([df_tutor.columns.values.tolist()] + df_tutor.values.tolist())
-        st.write("We received your registration! Please give us 24 hours to approve your registration!")
+        st.write("Email sent to tutors")
+
+        output = []
+        for row in df_student[(df_student['complete'] == 'Y') & (df_student['approval_email'] == 'N')].values:
+            email_ = row[2]
+            name_ = row[0]
+            mailing('', name_, email_)
+            row[-1] = 'Y'
+            output += [row]
+        df_student = pd.DataFrame(output, columns = df_student.columns)
+        wks_student.update([df_student.columns.values.tolist()] + df_student.values.tolist())
+        st.write("Email sent to students")
+
+    
 else:
   st.error('Wrong username and password')
     
