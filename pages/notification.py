@@ -50,25 +50,25 @@ subjects = {'academic': ['', 'English Conversation for International students', 
 }
 # ---------------------------------------------------------------------------------------------------------
 
-def mailing(subject, name, email_):
+def mailing(subject, name, email_, cat='tutor'):
     import smtplib
     from email.mime.text import MIMEText
-
-    msg1 = MIMEText(f"""
-    Hello {name}, 
-
-    Your account is now active. Please visit https://aah-tutors.streamlit.app/Tutor%20Availability%20Update to add/update your schedule for tutoring. 
-
+    if cat = 'tutor':
+        msg = MIMEText(f"""
+        Hello {name}, 
     
-    """[1:])
-
-    msg2 = MIMEText(f"""
-    Hello {name}, 
-
-    Your account is now active. Please visit https://aah-tutors.streamlit.app/Sign%20up%20for%20a%20session to sign up for your first session.
-
+        Your account is now active. Please visit https://aah-tutors.streamlit.app/Tutor%20Availability%20Update to add/update your schedule for tutoring. 
     
-    """[1:])
+        
+        """[1:])
+    elif cat = 'student':
+        msg = MIMEText(f"""
+        Hello {name}, 
+    
+        Your account is now active. Please visit https://aah-tutors.streamlit.app/Sign%20up%20for%20a%20session to sign up for your first session.
+    
+        
+        """[1:])
     msg['Subject'] = 'AAH Account Approval'
     connection = smtplib.SMTP('smtp.gmail.com', 587)
     connection.starttls()
@@ -116,7 +116,7 @@ if name == 'Admin' and password == 'aahAdmin123':
         for row in df_student[(df_student['complete'] == 'Y') & (df_student['approval_email'] == 'N')].values:
             email_ = row[2]
             name_ = row[0]
-            mailing('', name_, email_)
+            mailing('', name_, email_, 'student')
             row[-1] = 'Y'
             output += [row]
         df_student = pd.DataFrame(output, columns = df_student.columns)
