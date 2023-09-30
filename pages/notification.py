@@ -53,7 +53,7 @@ subjects = {'academic': ['', 'English Conversation for International students', 
 def mailing(subject, name, email_, cat='tutor'):
     import smtplib
     from email.mime.text import MIMEText
-    if cat = 'tutor':
+    if cat == 'tutor':
         msg = MIMEText(f"""
         Hello {name}, 
     
@@ -61,7 +61,7 @@ def mailing(subject, name, email_, cat='tutor'):
     
         
         """[1:])
-    elif cat = 'student':
+    elif cat == 'student':
         msg = MIMEText(f"""
         Hello {name}, 
     
