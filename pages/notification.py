@@ -102,22 +102,24 @@ if name == 'Admin' and password == 'aahAdmin123':
     submitted = st.form_submit_button("Send email to approved tutors and students")
     if submitted:
         output = []
-        for row in df_tutor[(df_tutor['complete'] == 'Y') & (df_tutor['approval_email'] == 'N')].values:
+        for row in df_tutor.values:
             email_ = row[2]
             name_ = row[0]
-            mailing('', name_, email_)
-            row[-1] = 'Y'
+            if row[-2] == 'Y' and row[-1] == 'N':
+                mailing('', name_, email_)
+                row[-1] = 'Y'
             output += [row]
         df_tutor = pd.DataFrame(output, columns = df_tutor.columns)
         wks_tutor.update([df_tutor.columns.values.tolist()] + df_tutor.values.tolist())
         st.write("Email sent to tutors")
 
         output = []
-        for row in df_student[(df_student['complete'] == 'Y') & (df_student['approval_email'] == 'N')].values:
+        for row in df_student.values:
             email_ = row[2]
             name_ = row[0]
-            mailing('', name_, email_, 'student')
-            row[-1] = 'Y'
+            if row[-2] == 'Y' and row[-1] == 'N':
+                mailing('', name_, email_, 'student')
+                row[-1] = 'Y'
             output += [row]
         df_student = pd.DataFrame(output, columns = df_student.columns)
         wks_student.update([df_student.columns.values.tolist()] + df_student.values.tolist())
