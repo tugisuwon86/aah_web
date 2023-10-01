@@ -136,7 +136,7 @@ Your student might bring their own material they want to work on.
     elif email.strip() in df_tutor['email'].values:
       st.error('you are already registered!', icon="🚨")
     else:
-      df_tutor.loc[len(df_tutor.index)] = [first_name, last_name, email.lower(), grade, country, referral, school, telephone, math_subjects, eng_subjects, 'N', 'N']
+      df_tutor.loc[len(df_tutor.index)] = [first_name, last_name, email.lower().strip(), grade, country, referral, school, telephone, math_subjects, eng_subjects, 'N', 'N']
       #st.dataframe(df_tutor)
       wks_tutor.update([df_tutor.columns.values.tolist()] + df_tutor.values.tolist())
       st.write("We received your registration! Please give us 24 hours to approve your registration!")
