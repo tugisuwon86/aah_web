@@ -116,7 +116,7 @@ if check_.shape[0] > 0 and save_submitted:
         # clear worksheet first
         #wks_schedule.clear()
 
-        st.dataframe(df)
+        st.write(list(df.columns))
         # overwrite if exists
         #print(list(df.columns))
         df = df[df['Email'] != email]
