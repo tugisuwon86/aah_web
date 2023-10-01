@@ -114,7 +114,7 @@ if check_.shape[0] > 0 and save_submitted:
     if action == 'New registration/Update schedule':
         name = check_.first_name.values[0] + ' ' + check_.last_name.values[0]
         # clear worksheet first
-        wks_schedule.clear()
+        #wks_schedule.clear()
     
         # overwrite if exists
         #print(list(df.columns))
