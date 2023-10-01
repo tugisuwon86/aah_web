@@ -115,7 +115,8 @@ if check_.shape[0] > 0 and save_submitted:
         name = check_.first_name.values[0] + ' ' + check_.last_name.values[0]
         # clear worksheet first
         #wks_schedule.clear()
-    
+
+        st.dataframe(df)
         # overwrite if exists
         #print(list(df.columns))
         df = df[df['Email'] != email]
