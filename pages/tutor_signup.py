@@ -219,7 +219,7 @@ tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow))] #=
 
 # mae sure it's not taken
 dow_ = tutor_date.weekday()
-taken = [(xx[2], dow_mapping[dow_] + ' : ' + xx[3]) for xx in df.loc[(df['Email'] == email_) & (df['Date'] == str(tutor_date))].values]
+taken = [(xx[2], dow_mapping[dow_] + ' : ' + xx[3]) for xx in df.loc[(df['Date'] == str(tutor_date))].values]
 
 options = [x[0] + ' || ' + x[2] for x in tutor_option_2.values if (x[1], x[2]) not in taken]
 session = st.selectbox("Choose the session - everything is in EDT timezone", options)
