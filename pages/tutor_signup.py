@@ -46,7 +46,7 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     Subject: {subject}
     Datetime: {tutor_date} {tutor_time}
 
-    If you need to cancel/reschedule, please send email to freetutoring@americanassimilationhelpline.org. Your tutor will reach out with google meet link prior to the sessions. Thanks.
+    If you need to cancel/reschedule, please communicate with your teacher at {email_tutor} and send email to freetutoring@americanassimilationhelpline.org with changed schedule. Your tutor will reach out with google meet link prior to the sessions. Thanks.
     
     """[1:])
     msg['Subject'] = 'AAH Tutoring Schedule Confirmation'
@@ -85,7 +85,7 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     
     -Record your volunteer hours to confirm them with us. 
 
-    If you are not available at this time, please send email to freetutoring@americanassimilationhelpline.org. Please reach out to {email_student} with google meet link before the session. Thanks.
+    If you are not available at this time, please communicate with your student at {email_student} and send email to freetutoring@americanassimilationhelpline.org with changed schedule. Please reach out to {email_student} with google meet link before the session. Thanks.
     
     """[1:])
     msg['Subject'] = 'AAH Tutoring Schedule Confirmation'
@@ -217,7 +217,11 @@ tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject))
 #st.table(tutor_option_1)
 tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow))] #== dow_mapping[tutor_dow] + " : " + tutor_time)]
 
-options = [x[0] + ' || ' + x[2] for x in tutor_option_2.values]
+# mae sure it's not taken
+dow_ = tutor_date.weekday()
+taken = [(xx[2], dow_mapping[dow_] + ' : ' + xx[3]) for xx in df.loc[(df['Email'] == email_) & (df['Date'] == str(tutor_date))].values]
+
+options = [x[0] + ' || ' + x[2] for x in tutor_option_2.values if (x[1], x[2]) not in taken]
 session = st.selectbox("Choose the session - everything is in EDT timezone", options)
 print('---------------------------')
 st.table(tutor_option_2)
