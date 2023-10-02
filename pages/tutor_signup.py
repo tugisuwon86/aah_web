@@ -224,7 +224,7 @@ taken = [(xx[2], dow_mapping[dow_] + ' : ' + xx[3]) for xx in df.loc[(df['Date']
 options = [x[0] + ' || ' + x[2] for x in tutor_option_2.values if (x[1], x[2]) not in taken]
 session = st.selectbox("Choose the session - everything is in EDT timezone", options)
 print('---------------------------')
-st.table(tutor_option_2)
+#st.table(tutor_option_2)
 name_mapping, email_mapping = {}, {}
 for row in tutor_option_2[['Email', 'Name']].values:
     name_mapping[row[0]] = row[1]
