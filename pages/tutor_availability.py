@@ -123,7 +123,7 @@ if check_.shape[0] > 0 and save_submitted:
         for dow, options in zip(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], [options_Monday, options_Tuesday, options_Wednesday, options_Thursday, options_Friday, options_Saturday, options_Sunday]):
             for r in options:
                 rows += [[name, email, dow + ' : ' + r]]
-        schedule = pd.concat([df, pd.DataFrame(rows, columns=['Name', 'Email', 'Schedule'])])
+        schedule = pd.concat([df, pd.DataFrame(rows, columns=['Name', 'Email', 'Schedule'])]).drop_duplicates()
         #print(schedule.head(5))
         wks_schedule.update([schedule.columns.values.tolist()] + schedule.values.tolist())
     else:
