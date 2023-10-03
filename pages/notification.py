@@ -106,7 +106,7 @@ if name == 'Admin' and password == 'aahAdmin123':
             email_ = row[2]
             name_ = row[0]
             if row[-2] == 'Y' and row[-1] == 'N':
-                st.write(row)
+                #st.write(row)
                 mailing('', name_, email_)
                 row[-1] = 'Y'
             output += [row]
