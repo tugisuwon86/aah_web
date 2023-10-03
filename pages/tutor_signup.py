@@ -45,6 +45,7 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     Tutor: {tutor}
     Subject: {subject}
     Datetime: {tutor_date} {tutor_time}
+    Tutor Email: {email_tutor}
 
     If you need to cancel/reschedule, please communicate with your teacher at {email_tutor} and send email to freetutoring@americanassimilationhelpline.org with changed schedule. Your tutor will reach out with google meet link prior to the sessions. Thanks.
     
@@ -62,6 +63,7 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     Student has signed up for the following tutor session:
     Subject: {subject}
     Datetime: {tutor_date} {tutor_time} EDT
+    Student Email: {email_student}
 
     -We are using Google Meet for our online sessions (You need to have a Gmail account)
     1) go to meet.Google.com
