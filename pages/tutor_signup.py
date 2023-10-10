@@ -182,8 +182,8 @@ st.table(current_booking)
 
 if check_.shape[0] == 0:
     st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
-elif number_of_booking.shape[0] >= 20:
-    st.error('You booked more than the number of weekly limit')
+# elif number_of_booking.shape[0] >= 20:
+#     st.error('You booked more than the number of weekly limit')
 
 #subject_options = sorted(tuple(set(df['Subject'].values)))
 
