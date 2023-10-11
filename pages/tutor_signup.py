@@ -48,6 +48,8 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     Tutor Email: {email_tutor}
 
     If you need to cancel/reschedule, please communicate with your teacher at {email_tutor} and send email to freetutoring@americanassimilationhelpline.org with changed schedule. Your tutor will reach out with google meet link prior to the sessions. Thanks.
+
+    - Follow up: After the completing of tutor session, please visit https://aah-tutors.streamlit.app/Follow%20up to mark it complete!
     
     """[1:])
     msg['Subject'] = 'AAH Tutoring Schedule Confirmation'
@@ -88,6 +90,8 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     -Record your volunteer hours to confirm them with us. 
 
     If you are not available at this time, please communicate with your student at {email_student} and send email to freetutoring@americanassimilationhelpline.org with changed schedule. Please reach out to {email_student} with google meet link before the session. Thanks.
+
+    - Follow up: After the completing of tutor session, please visit https://aah-tutors.streamlit.app/Follow%20up to mark it complete!
     
     """[1:])
     msg['Subject'] = 'AAH Tutoring Schedule Confirmation'
