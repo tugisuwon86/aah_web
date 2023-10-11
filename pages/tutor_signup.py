@@ -190,7 +190,7 @@ if check_.shape[0] == 0:
 # subjects_ = json.load(open('subjects.json'))
 subjects_ = {'academic': ['English Conversation for International students', 'Elementary English & Language Arts', 
           'Middle School English & Language Arts', 'Elementary Math', 'Middle School Math', 'Pre-Algebra', 'Algebra I',
-          'Algebra II', 'Geometry', 'Pre-Calculus', 'AP Calculus AB', 'AP Calculus BC', 'Beginner Spanish', 'Advanced Spanish', 
+          'Algebra II', 'Geometry', 'Pre-Calculus', 'AP Calculus AB', 'AP Calculus BC', 'AP Physics', 'Beginner Spanish', 'Advanced Spanish', 
           'SAT', 'ACT', 'Learning Lab - (Do not select any subject we only offer in person section)'], 
   'Computer Science': ['Scratch', 'HTML/CSS', 'General Programming Concepts', 'Intro to Python', 'Intermediate/Advanced Python', 
                       'Intro to JAVA', 'Intermediate/Advanced JAVA']
@@ -216,6 +216,7 @@ st.write('Please choose different day of week if you cannot find the spot you wa
 # tutor_time = meta_col2.selectbox('Time', [str(i)+' PM -'+str(i+1) + ' PM'for i in range(2, 10)])
 
 tutor_option_1 = df_tutor.loc[((df_tutor['math_subjects'].str.contains(subject)) | (df_tutor['english_subjects'].str.contains(subject)))]
+tutors_subject = set(tutor_option_1['email'].values)
 #st.table(tutor_option_1)
 tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow))] #== dow_mapping[tutor_dow] + " : " + tutor_time)]
 
@@ -223,7 +224,7 @@ tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow))] #=
 dow_ = tutor_date.weekday()
 taken = [(xx[2], dow_mapping[dow_] + ' : ' + xx[3]) for xx in df.loc[(df['Date'] == str(tutor_date))].values]
 
-options = [x[0] + ' || ' + x[2] for x in tutor_option_2.values if (x[1], x[2]) not in taken]
+options = [x[0] + ' || ' + x[2] for x in tutor_option_2.values if (x[1], x[2]) not in taken and x[1] in tutors_subject]
 session = st.selectbox("Choose the session - everything is in EDT timezone", options)
 print('---------------------------')
 #st.table(tutor_option_2)
