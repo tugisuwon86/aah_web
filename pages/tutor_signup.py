@@ -224,8 +224,8 @@ tutor_option_2 = df_schedule.loc[(df_schedule['Schedule'].str.contains(dow))] #=
 dow_ = tutor_date.weekday()
 taken = [(xx[2], dow_mapping[dow_] + ' : ' + xx[3]) for xx in df.loc[(df['Date'] == str(tutor_date))].values]
 
-st.write(tutors_subject)
-st.dataframe(tutor_option_2)
+#st.write(tutors_subject)
+#st.dataframe(tutor_option_2)
 options = [x[0] + ' || ' + x[2] for x in tutor_option_2.values if (x[1], x[2]) not in taken and x[1] in tutors_subject]
 session = st.selectbox("Choose the session - everything is in EDT timezone", options)
 print('---------------------------')
