@@ -110,7 +110,7 @@ Your student might bring their own material they want to work on.
 
 - If you are tutoring English conversation, use or download Google Translate to translate English to your student's language - this allows for effective communication with your student. (for instance, Brazil's primary language is Portuguese)
 
-- Take a screenshot during each session with you and your student and email us at Freetutoring@americanassimilationhelpline.org. We use this to confirm your session took place for your volunteer hours. Take the picture at the beginning of your session to ensure you don't forget.
+- Take a screenshot during each session with you and your student and email us at Freetutoring@americanassimilationhelpline.org and follow up to confirm your session from https://aah-tutors.streamlit.app/Follow%20up. We use this to confirm your session took place for your volunteer hours. Take the picture at the beginning of your session to ensure you don't forget.
 
 - You need to download WhatsApp! We communicate through it. Every registered tutor will be added to one of our WhatsApp tutor group chats. 
 
