@@ -67,7 +67,7 @@ with st.form('tutor_registration_form'):
   last_name = st.text_input('Your last name')
   email = st.text_input('We are using Google Meet for tutoring services. Please type your Gmail')
 
-  grade = st.selectbox('Your grade', [str(i)+'th' for i in range(8, 13)] + ['College Freshmen', 'College Sophomore', 'College Junior', 'College Senior'])
+  grade = st.selectbox('Your grade', [str(i)+'th' for i in range(6, 13)] + ['College Freshmen', 'College Sophomore', 'College Junior', 'College Senior'])
   country = st.text_input('Your country')
   referral = st.text_input('How did you hear about us?')
 
