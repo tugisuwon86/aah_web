@@ -85,6 +85,6 @@ with st.form('tutor_registration_form'):
       complete1 = df_tutor[df_tutor['email'] == email].index
       wks_tutor.update_cell(complete1, 8, math_subjects)
       wks_tutor.update_cell(complete1, 9, eng_subjects)
-      st.write("Updated)
+      st.write("Updated")
 
   
