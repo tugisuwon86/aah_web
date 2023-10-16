@@ -64,18 +64,7 @@ df_tutor = pd.DataFrame(wks_tutor.get_all_records())
 # st.dataframe(df_tutor)
 
 with st.form('tutor_registration_form'):
-  first_name = st.text_input('Your first name')
-  last_name = st.text_input('Your last name')
-  email = st.text_input('We are using Google Meet for tutoring services. Please type your Gmail')
-
-  grade = st.selectbox('Your grade', [str(i)+'th' for i in range(6, 13)] + ['College Freshmen', 'College Sophomore', 'College Junior', 'College Senior'])
-  country = st.text_input('Your country')
-  referral = st.text_input('How did you hear about us?')
-
-  school = st.text_input('Name of your school')
-  telephone = st.text_input('Please provide valid number in case we need to reach you')
-  
-  #subjects = json.load(open('subjects.json'))
+  email = st.text_input('Please type your teacher email')
 
   st.write('Choose as many as possible by selecting all -> leave it as blank if not!')
   st.write('**Please select English Conversation as one of your subjects!!**')
@@ -86,60 +75,16 @@ with st.form('tutor_registration_form'):
   # convert array of subjects to string
   math_subjects = ','.join([xx for xx in math_subjects if xx != ''])
   eng_subjects = ','.join([xx for xx in eng_subjects if xx != ''])
-
-  st.divider()  # 👈 Draws a horizontal rule
-  st.write("Please send an email to freetutoring@americanassimilationhelpline.org with photo ID to complete the registration!")
-  st.write("Tutors need to provide 1) Student ID or 2) Driver license - if you don't have one, please send us your parent's driver license to complete your registration")
-
-  st.markdown("**PLEASE READ BELOW BEFORE SUBMITTING YOUR APPLICATION**")
-  para = '''
-- We are using Google Meet for our online sessions (You need to have a Gmail account)
-1) go to meet.Google.com
-2) create an instant meeting
-3) click on the i in a circle and copy the info
-4) paste it in the email to your student
-
-- Tutor can sign up for a session whenever you are available. There is no minimum or maximum number of sessions required for volunteers.
-
-- Tutor must turn on your camera while you are in your session. 
-
-- Tutor can find our teaching materials for your session from our website. 
-For academic resources: https://www.americanassimilationhelpline.org/get_involved
-For Computer Science resources: 
-https://www.americanassimilationhelpline.org/coding
-Your student might bring their own material they want to work on. 
-
-- If you are tutoring English conversation, use or download Google Translate to translate English to your student's language - this allows for effective communication with your student. (for instance, Brazil's primary language is Portuguese)
-
-- Take a screenshot during each session with you and your student and email us at Freetutoring@americanassimilationhelpline.org and follow up to confirm your session from https://aah-tutors.streamlit.app/Follow%20up. We use this to confirm your session took place for your volunteer hours. Take the picture at the beginning of your session to ensure you don't forget.
-
-- You need to download WhatsApp! We communicate through it. Every registered tutor will be added to one of our WhatsApp tutor group chats. 
-
-- Record your volunteer hours to confirm them with us. 
-  '''
-  st.markdown(para)
-
-  st.markdown('***COMMUNICATION***')
-  para = '''
-  Both tutor and student will receive an email (aahtutoringscheduler@gmail.com) from us with your student and tutor info. You won’t get an email from us if you don’t have your student. We match tutor and student by subjects and their availabilities. 
-  '''
-  st.markdown(para)
-    
-  sent = st.checkbox('Sent email')
     
   submitted = st.form_submit_button("Submit tutor registration form")
-  if submitted and sent:
+  if submitted:
     # first check valid email
-    if first_name.strip() == '' or last_name.strip() == '':
-      st.error('please provide your full name', icon="🚨")
-    elif not re.fullmatch(r"[^@]+@[^@]+\.[^@]+", email):
-      st.error('please provide valid email address', icon="🚨")
-    elif email.strip() in df_tutor['email'].values:
-      st.error('you are already registered!', icon="🚨")
+    if email not in df_tutor['email']:
+      st.error('You are not registered', icon="🚨")
     else:
-      df_tutor.loc[len(df_tutor.index)] = [first_name, last_name, email.lower().strip(), grade, country, referral, school, telephone, math_subjects, eng_subjects, 'N', 'N']
-      #st.dataframe(df_tutor)
-      wks_tutor.update([df_tutor.columns.values.tolist()] + df_tutor.values.tolist())
-      st.write("We received your registration! Please give us 24 hours to approve your registration!")
+      complete1 = df_tutor[df_tutor['email'] == email].index
+      wks_tutor.update_cell(complete1, 8, math_subjects)
+      wks_tutor.update_cell(complete1, 9, eng_subjects)
+      st.write("Updated)
 
   
