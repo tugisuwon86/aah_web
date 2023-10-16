@@ -84,8 +84,9 @@ with st.form('tutor_registration_form'):
       st.error('You are not registered', icon="🚨")
     else:
       complete1 = df_tutor[df_tutor['email'] == email].index
-      wks_tutor.update_cell(complete1, 8, math_subjects)
-      wks_tutor.update_cell(complete1, 9, eng_subjects)
+      st.write(complete1)
+      # wks_tutor.update_cell(complete1, 8, math_subjects)
+      # wks_tutor.update_cell(complete1, 9, eng_subjects)
       st.write("Updated")
 
   
