@@ -79,14 +79,14 @@ with st.form('tutor_registration_form'):
   submitted = st.form_submit_button("Submit tutor registration form")
   if submitted:
     # first check valid email
-    st.write(email, list(df_tutor['email'].values))
+    #st.write(email, list(df_tutor['email'].values))
     if email not in list(df_tutor['email'].values):
       st.error('You are not registered', icon="🚨")
     else:
-      complete1 = df_tutor[df_tutor['email'] == email].index
+      complete1 = df_tutor[df_tutor['email'] == email].index[0]
       st.write(complete1)
-      # wks_tutor.update_cell(complete1, 8, math_subjects)
-      # wks_tutor.update_cell(complete1, 9, eng_subjects)
+      wks_tutor.update_cell(complete1+2, 8, math_subjects)
+      wks_tutor.update_cell(complete1+2, 9, eng_subjects)
       st.write("Updated")
 
   
