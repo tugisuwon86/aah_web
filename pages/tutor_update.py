@@ -79,7 +79,8 @@ with st.form('tutor_registration_form'):
   submitted = st.form_submit_button("Submit tutor registration form")
   if submitted:
     # first check valid email
-    if email not in df_tutor['email']:
+    st.write(email, list(df_tutor['email'].values))
+    if email not in list(df_tutor['email'].values):
       st.error('You are not registered', icon="🚨")
     else:
       complete1 = df_tutor[df_tutor['email'] == email].index
