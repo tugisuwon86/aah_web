@@ -23,6 +23,7 @@ show_pages(
         Section(name="For Tutors Only", icon="🎈️"),
         Page("pages/tutor_registration.py", "Tutor Registration"),
         Page("pages/tutor_availability.py", "Tutor Availability Update"),
+        Page("pages/tutor_update.py", "Tutor Information Update"),
         
         Section(name="For Students Only", icon="💪"),    
         Page("pages/student_registration.py", "Student Registration"),
