@@ -13,6 +13,7 @@ show_pages(
         Section(name="For Tutors Only", icon="🎈️"),
         Page("pages/tutor_registration.py", "Tutor Registration"),
         Page("pages/tutor_availability.py", "Tutor Availability Update"),
+        Page("pages/tutor_update.py", "Tutor Information Update"),
         
         Section(name="For Students Only", icon="💪"),    
         Page("pages/student_registration.py", "Student Registration"),
@@ -22,6 +23,7 @@ show_pages(
         # Page("pages/cancel_session.py", "Student Registration"),
         Page("pages/complete_session.py", "Follow up"),
         Page("pages/summary.py", "Summary"),
+        Page("pages/notification.py", "Notification"),
     ]
 )
 add_page_title() # By default this also adds indentation
