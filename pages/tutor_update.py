@@ -76,7 +76,7 @@ with st.form('tutor_registration_form'):
   math_subjects = ','.join([xx for xx in math_subjects if xx != ''])
   eng_subjects = ','.join([xx for xx in eng_subjects if xx != ''])
     
-  submitted = st.form_submit_button("Submit tutor registration form")
+  submitted = st.form_submit_button("Update Subjects")
   if submitted:
     # first check valid email
     #st.write(email, list(df_tutor['email'].values))
