@@ -233,17 +233,18 @@ taken = [(xx[2], dow_mapping[dow_] + ' : ' + xx[3]) for xx in df.loc[(df['Date']
 #st.write(tutors_subject)
 #st.dataframe(tutor_option_2)
 options = [x[0] + ' || ' + x[2] for x in tutor_option_2.values if (x[1], x[2]) not in taken and x[1] in tutors_subject]
-session = st.selectbox("Choose the session - everything is in EDT timezone", options)
-print('---------------------------')
-#st.table(tutor_option_2)
-name_mapping, email_mapping = {}, {}
-for row in tutor_option_2[['Email', 'Name']].values:
-    name_mapping[row[0]] = row[1]
-    email_mapping[row[1]] = row[0]
-tutor_option = list(sorted(set(tutor_option_1.email.values) & set(tutor_option_2.Email.values)))
-if len(tutor_option) == 0:
+if len(options) == 0:
     st.error('No class available on this date')
 else:
+    session = st.selectbox("Choose the session - everything is in EDT timezone", options)
+    print('---------------------------')
+    #st.table(tutor_option_2)
+    name_mapping, email_mapping = {}, {}
+    for row in tutor_option_2[['Email', 'Name']].values:
+        name_mapping[row[0]] = row[1]
+        email_mapping[row[1]] = row[0]
+    tutor_option = list(sorted(set(tutor_option_1.email.values) & set(tutor_option_2.Email.values)))
+
     #print('tutor option', tutor_option)
     
     # make sure tutor is available by comparing it with tutor's absent schedule
