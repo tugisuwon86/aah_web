@@ -280,7 +280,7 @@ else:
         #print(df.head())
     
         if save_submitted:
-            if number_of_booking.shape[0] >= 2:
+            if number_of_booking.shape[0] >= 200:
                 st.error('You booked more than the number of weekly limit', icon="🚨")
             elif check_.shape[0] > 0:
                 # index = df.index[(df['Name'] == tutor) & (df['Schedule'] == option)].to_list()
