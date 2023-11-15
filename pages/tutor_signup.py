@@ -49,9 +49,9 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     Datetime: {tutor_date} {tutor_time}
     Tutor Email: {email_tutor}
 
-    If you need to cancel/reschedule, please communicate with your teacher at {email_tutor} and send email to freetutoring@americanassimilationhelpline.org with changed schedule. Your tutor will reach out with google meet link prior to the sessions. Thanks.
+    After a tutoring session, students should click on “Follow Up” (https://aah-tutors.streamlit.app/Follow%20up) to confirm that the session took place. This step ensures that both parties maintain accurate records. So, students, don’t forget to confirm your sessions! 
 
-    - Follow up: After the completing of tutor session, please visit https://aah-tutors.streamlit.app/Follow%20up to mark it complete!
+    If you need to cancel/reschedule, please communicate with your teacher at {email_tutor} and send email to freetutoring@americanassimilationhelpline.org with changed schedule. Your tutor will reach out with google meet link prior to the sessions. Thanks.
     
     """[1:])
     msg['Subject'] = 'AAH Tutoring Schedule Confirmation'
@@ -68,6 +68,8 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     Subject: {subject}
     Datetime: {tutor_date} {tutor_time} EDT
     Student Email: {email_student}
+
+    After a tutoring session, tutors should click on “Follow Up” (https://aah-tutors.streamlit.app/Follow%20up) to confirm that the session took place. This step is the only way to allow the tutor’s volunteer hours to be accurately recorded. So, tutors, remember to click that button after each session!
 
     -We are using Google Meet for our online sessions (You need to have a Gmail account)
     1) go to meet.Google.com
@@ -92,8 +94,6 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     -Record your volunteer hours to confirm them with us. 
 
     If you are not available at this time, please communicate with your student at {email_student} and send email to freetutoring@americanassimilationhelpline.org with changed schedule. Please reach out to {email_student} with google meet link before the session. Thanks.
-
-    - Follow up: After the completing of tutor session, please visit https://aah-tutors.streamlit.app/Follow%20up to mark it complete!
     
     """[1:])
     msg['Subject'] = 'AAH Tutoring Schedule Confirmation'
