@@ -87,5 +87,5 @@ while True:
   wks_student.update([df_student.columns.values.tolist()] + df_student.values.tolist())
   #st.write("Email sent to students")
   st.write('test!')
-  time.sleep(3600)
+  time.sleep(15)
     
