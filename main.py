@@ -27,6 +27,7 @@ show_pages(
         Page("pages/complete_session.py", "Follow up"),
         Page("pages/summary.py", "Summary"),
         Page("pages/notification.py", "Notification"),
+        Page("pages/automate.py", "Automate"),
     ]
 )
 add_page_title() # By default this also adds indentation
