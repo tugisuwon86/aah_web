@@ -61,6 +61,7 @@ wks_student = sh.worksheet("Students_Registration")
 df_student = pd.DataFrame(wks_student.get_all_records())
 df_tutor = pd.DataFrame(wks_tutor.get_all_records())
 
+index = 0
 while True:
   output = []
   for row in df_tutor.values:
@@ -86,6 +87,7 @@ while True:
   df_student = pd.DataFrame(output, columns = df_student.columns)
   wks_student.update([df_student.columns.values.tolist()] + df_student.values.tolist())
   #st.write("Email sent to students")
-  st.write('test!')
+  st.write('test!' + ' ' + str(index))
+  index += 1
   time.sleep(15)
     
