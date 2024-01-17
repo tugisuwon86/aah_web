@@ -120,9 +120,12 @@ if check_.shape[0] > 0 and save_submitted:
 
         # overwrite if exists
         #print(list(df.columns))
+        st.write('before', df.shape)
         df = df[df['Email'] != email]
+        st.write('after', 'df.shape)
         rows = []
         for dow, options in zip(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], [options_Monday, options_Tuesday, options_Wednesday, options_Thursday, options_Friday, options_Saturday, options_Sunday]):
+            st.write(dow, options)
             for r in options:
                 rows += [[name, email, dow + ' : ' + r]]
         schedule = pd.concat([df, pd.DataFrame(rows, columns=['Name', 'Email', 'Schedule'])]).drop_duplicates()
