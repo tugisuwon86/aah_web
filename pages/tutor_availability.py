@@ -120,9 +120,9 @@ if check_.shape[0] > 0 and save_submitted:
 
         # overwrite if exists
         #print(list(df.columns))
-        st.write('before', df.shape)
+        st.write('before ' +  str(df.shape))
         df = df[df['Email'] != email]
-        st.write('after', 'df.shape)
+        st.write('after ' + str(df.shape))
         rows = []
         for dow, options in zip(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], [options_Monday, options_Tuesday, options_Wednesday, options_Thursday, options_Friday, options_Saturday, options_Sunday]):
             st.write(dow, options)
