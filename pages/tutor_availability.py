@@ -130,6 +130,7 @@ if check_.shape[0] > 0 and save_submitted:
                 rows += [[name, email, dow + ' : ' + r]]
         schedule = pd.concat([df, pd.DataFrame(rows, columns=['Name', 'Email', 'Schedule'])]).drop_duplicates()
         #print(schedule.head(5))
+        st.dataframe(schedule[schedule['Email'] == email].head(10))
         wks_schedule.update([schedule.columns.values.tolist()] + schedule.values.tolist())
     else:
         # clear worksheet first
