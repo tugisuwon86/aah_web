@@ -120,7 +120,7 @@ if check_.shape[0] > 0 and save_submitted:
 
         # overwrite if exists
         #print(list(df.columns))
-        st.write('before ' +  str(df.shape))
+        #st.write('before ' +  str(df.shape))
         df = df[df['Email'] != email]
         #st.write('after ' + str(df.shape))
         rows = []
