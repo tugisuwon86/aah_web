@@ -128,9 +128,12 @@ if check_.shape[0] > 0 and save_submitted:
             st.write(dow, options)
             for r in options:
                 rows += [[name, email, dow + ' : ' + r]]
-        schedule = pd.concat([df, pd.DataFrame(rows, columns=['Name', 'Email', 'Schedule'])]).drop_duplicates()
+        temp = pd.DataFrame(rows, columns=['Name', 'Email', 'Schedule'])
+        st.dataframe(temp.head(10))
+        schedule = pd.concat([df, temp]).drop_duplicates()
         #print(schedule.head(5))
         st.dataframe(schedule[schedule['Email'] == email].head(10))
+        st.write(df.shape, temp.shape, schedule.shape)
         wks_schedule.update([schedule.columns.values.tolist()] + schedule.values.tolist())
     else:
         # clear worksheet first
