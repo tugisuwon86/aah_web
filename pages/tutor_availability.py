@@ -122,18 +122,19 @@ if check_.shape[0] > 0 and save_submitted:
         #print(list(df.columns))
         st.write('before ' +  str(df.shape))
         df = df[df['Email'] != email]
-        st.write('after ' + str(df.shape))
+        #st.write('after ' + str(df.shape))
         rows = []
         for dow, options in zip(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], [options_Monday, options_Tuesday, options_Wednesday, options_Thursday, options_Friday, options_Saturday, options_Sunday]):
-            st.write(dow, options)
+            #st.write(dow, options)
             for r in options:
                 rows += [[name, email, dow + ' : ' + r]]
         temp = pd.DataFrame(rows, columns=['Name', 'Email', 'Schedule'])
-        st.dataframe(temp.head(10))
+        #st.dataframe(temp.head(10))
         schedule = pd.concat([df, temp]).drop_duplicates()
         #print(schedule.head(5))
-        st.dataframe(schedule[schedule['Email'] == email].head(10))
-        st.write(df.shape, temp.shape, schedule.shape)
+        #st.dataframe(schedule[schedule['Email'] == email].head(10))
+        #st.write(df.shape, temp.shape, schedule.shape)
+        wks_schedule.clear()
         wks_schedule.update([schedule.columns.values.tolist()] + schedule.values.tolist())
     else:
         # clear worksheet first
