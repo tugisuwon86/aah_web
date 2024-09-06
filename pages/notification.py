@@ -72,7 +72,7 @@ def mailing(subject, name, email_, cat='tutor'):
     msg['Subject'] = 'AAH Account Approval'
     connection = smtplib.SMTP('smtp.gmail.com', 587)
     connection.starttls()
-    connection.login('aahtutoringscheduler@gmail.com', 'kvctvjcqztuuvogk') # qdqrhbtswkkemzlw')#'lnafzpcllnnpwtmk') #'@RQu&S56pAS1')
+    connection.login('aahtutoringscheduler@gmail.com', 'Tndnjsdl1!') #'kvctvjcqztuuvogk') # qdqrhbtswkkemzlw')#'lnafzpcllnnpwtmk') #'@RQu&S56pAS1')
     connection.sendmail('aahtutoringscheduler@gmail.com', email_, msg.as_string())
     connection.quit()
 
