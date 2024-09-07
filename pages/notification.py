@@ -111,7 +111,7 @@ if name == 'Admin' and password == 'aahAdmin123':
                     mailing('', name_, email_)
                     row[-1] = 'Y'
                 except:
-                    st.write(email_, ': email didn't send out to this recipient with the problem')
+                    st.write(email_, ': email did not send out to this recipient with the problem')
             output += [row]
         df_tutor = pd.DataFrame(output, columns = df_tutor.columns)
         wks_tutor.update([df_tutor.columns.values.tolist()] + df_tutor.values.tolist())
