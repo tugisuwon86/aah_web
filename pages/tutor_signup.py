@@ -98,7 +98,7 @@ def mailing(tutor, subject, email_tutor, tutor_time, tutor_date, email_student):
     msg['Subject'] = 'AAH Tutoring Schedule Confirmation'
     connection = smtplib.SMTP('smtp.gmail.com', 587)
     connection.starttls()
-    connection.login('aahtutoringscheduler@gmail.com','qdqrhbtswkkemzlw')#'lnafzpcllnnpwtmk') #'@RQu&S56pAS1')
+    connection.login('aahtutoringscheduler@gmail.com', 'kvctvjcqztuuvogk')
     connection.sendmail('aahtutoringscheduler@gmail.com', email_tutor, msg.as_string())
     connection.quit()
 
