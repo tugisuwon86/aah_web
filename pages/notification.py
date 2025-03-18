@@ -107,11 +107,11 @@ if name == 'Admin' and password == 'aahAdmin123':
             name_ = row[0]
             if row[-2] == 'Y' and row[-1] == 'N':
                 #st.write(row)
-                # try:
-                mailing('', name_, email_)
-                row[-1] = 'Y'
-                # except:
-                #     st.write(email_, ': email did not send out to this recipient with the problem')
+                try:
+                    mailing('', name_, email_)
+                    row[-1] = 'Y'
+                except:
+                    st.write(email_, ': email did not send out to this recipient with the problem')
             output += [row]
         df_tutor = pd.DataFrame(output, columns = df_tutor.columns)
         wks_tutor.update([df_tutor.columns.values.tolist()] + df_tutor.values.tolist())
