@@ -105,7 +105,7 @@ if name == 'Admin' and password == 'aahAdmin123':
         for row in df_tutor.values:
             email_ = row[2]
             name_ = row[0]
-            if row[-2] == 'Y' and row[-1] == 'N':
+            if row[-2] == 'Y' and row[-1] == 'N' and email_.strip() != '':
                 st.write(row)
                 try:
                     mailing('', name_, email_)
