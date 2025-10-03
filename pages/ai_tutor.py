@@ -12,7 +12,7 @@ import os
 # The st.secrets dictionary loads keys from Streamlit's secrets management 
 # or a local .streamlit/secrets.toml file.
 try:
-    API_KEY = "AIzaSyDU1LhVcmiKXfLusPdN3cxkdvcpUy-9gGQ"
+    API_KEY = ""
 except KeyError:
     # Fallback to environment variable for local development outside Streamlit Cloud
     API_KEY = os.getenv("GEMINI_API_KEY")
