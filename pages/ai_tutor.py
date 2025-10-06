@@ -162,7 +162,11 @@ def get_chat_session():
 # Get the persistent chat session
 chat = get_chat_session()
 
-
+# Check if the resource was successfully created
+if chat is None:
+    st.error("Cannot proceed: The chat resource failed to initialize.")
+    st.stop() # Stop execution if the resource is missing
+    
 # --- 2. Initialize Chat History in Session State ---
 # This ensures the history is not lost when the script re-runs
 if "messages" not in st.session_state:
