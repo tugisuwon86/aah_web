@@ -121,10 +121,10 @@ subject = meta_col0.selectbox('Subject', subjects_['academic'] + subjects_['Comp
 # ==============================================================================
 # This is a critical step to define the AI's persona and rules.
 
-SYSTEM_PROMPT = f"""
+SYSTEM_PROMPT = """
 You are an encouraging and knowledgeable educational AI Tutor.
 Your goal is to explain concepts clearly, provide practical examples, and engage the student 
-through questions to check their understanding. The requested subject is {subject}.
+through questions to check their understanding.
 
 Tutor Rules:
 1.  **Tone:** Be friendly, encouraging, and patient.
