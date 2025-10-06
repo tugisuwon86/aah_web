@@ -179,18 +179,18 @@ if prompt := st.chat_input("Ask me a question..."):
         st.markdown(prompt)
 
     # Get the model's response
-    try:
-        # --- FIX IS HERE: Change the method to send_message_stream() ---
-        response_stream = chat.send_message_stream(prompt)
-        
-        # Display the streaming response
-        with st.chat_message("assistant"):
-            # st.write_stream() consumes the generator from send_message_stream()
-            full_response = st.write_stream(response_stream)
+    # try:
+    # --- FIX IS HERE: Change the method to send_message_stream() ---
+    response_stream = chat.send_message_stream(prompt)
+    
+    # Display the streaming response
+    with st.chat_message("assistant"):
+        # st.write_stream() consumes the generator from send_message_stream()
+        full_response = st.write_stream(response_stream)
 
-        # Append the full response to the session history
-        st.session_state.messages.append({"role": "assistant", "content": full_response})
+    # Append the full response to the session history
+    st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-    except Exception as e:
-        # This will catch your "client has been closed" error and other issues
-        st.error(f"Sorry, an error occurred during the request: {e}")
+    # except Exception as e:
+    #     # This will catch your "client has been closed" error and other issues
+    #     st.error(f"Sorry, an error occurred during the request: {e}")
