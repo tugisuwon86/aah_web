@@ -21,6 +21,7 @@ except KeyError:
         st.stop()
 
 # Initialize the client
+st.write('api key = ', API_KEY)
 client = genai.Client(api_key=API_KEY)
 
 # Streamlit Page Setup
