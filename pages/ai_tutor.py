@@ -20,9 +20,6 @@ except KeyError:
         st.error("Error: GEMINI_API_KEY not found. Please set it in secrets.toml or as an environment variable.")
         st.stop()
 
-# Initialize the client
-st.write('api key = ', API_KEY)
-client = genai.Client(api_key=API_KEY)
 
 # Streamlit Page Setup
 # st.set_page_config(page_title="Personalized AI Tutor", layout="wide")
@@ -103,12 +100,8 @@ st.table(current_booking)
 
 if check_.shape[0] == 0:
     st.error('Your email address is not found in our system. Please register from the main website first', icon="🚨")
-# elif number_of_booking.shape[0] >= 20:
-#     st.error('You booked more than the number of weekly limit')
-
-#subject_options = sorted(tuple(set(df['Subject'].values)))
-
-# subjects_ = json.load(open('subjects.json'))
+    st.stop()
+    
 subjects_ = {'academic': ['English Conversation for International students', 'Elementary English & Language Arts', 
           'Middle School English & Language Arts', 'Elementary Math', 'Middle School Math', 'Pre-Algebra', 'Algebra I',
           'Algebra II', 'Geometry', 'Pre-Calculus', 'AP Calculus AB', 'AP Calculus BC', 'AP Physics', 'Beginner Spanish', 'Advanced Spanish', 
@@ -127,10 +120,30 @@ subject = meta_col0.selectbox('Subject', subjects_['academic'] + subjects_['Comp
 # 2. Model Configuration (System Prompt)
 # ==============================================================================
 # This is a critical step to define the AI's persona and rules.
-SYSTEM_PROMPT = """
+# Initialize the client
+@st.cache_resource
+def get_chat_session(SYSTEM_PROMPT, MODEL_NAME):
+    # Make sure your API key is set as an environment variable (e.g., GEMINI_API_KEY)
+    # The client will automatically pick it up.
+    try:
+        # Create the client
+        client = genai.Client(api_key=API_KEY)
+        
+        # Create and return the chat session
+        chat_session = client.chats.create(
+            model=MODEL_NAME,
+            config=genai.types.GenerateContentConfig(
+            system_instruction=SYSTEM_PROMPT  # Correctly sets the system prompt
+        )
+        return chat_session
+    except Exception as e:
+        st.error(f"Error initializing Gemini client or chat session. Is your API key set correctly? Error: {e}")
+        return None
+
+SYSTEM_PROMPT = f"""
 You are an encouraging and knowledgeable educational AI Tutor.
 Your goal is to explain concepts clearly, provide practical examples, and engage the student 
-through questions to check their understanding.
+through questions to check their understanding. The requested subject is {subject}.
 
 Tutor Rules:
 1.  **Tone:** Be friendly, encouraging, and patient.
@@ -143,68 +156,40 @@ Tutor Rules:
 """
 MODEL_NAME = 'gemini-2.5-flash'
 
-# 3. Chat History Management
-# ==============================================================================
-# Initialize chat history in Streamlit's session state for persistence across reruns.
+# Get the persistent chat session
+chat = get_chat_session(SYSTEM_PROMPT, MODEL_NAME)
+
+
+# --- 2. Initialize Chat History in Session State ---
+# This ensures the history is not lost when the script re-runs
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Initialize the Gemini Chat object with the history and system prompt
-# We use the Chat service to manage the conversation context automatically.
-if "chat_session" not in st.session_state:
-    st.session_state.chat_session = client.chats.create(
-        model=MODEL_NAME,
-        config=genai.types.GenerateContentConfig(
-            system_instruction=SYSTEM_PROMPT  # Correctly sets the system prompt
-        )
-    )
-    # Add an initial welcome message to the display history
-    st.session_state.messages.append(
-        {"role": "assistant", "content": "Hello! I'm your AI Tutor. What subject or concept are you ready to learn about today?"}
-    )
-    
-# 4. The Core Gemini API Call Function
-# ==============================================================================
-def generate_response(prompt):
-    """Sends the user prompt to the Gemini Chat session and returns the response text."""
-    try:
-        # Use the chat_session.send_message, which automatically includes history
-        response = st.session_state.chat_session.send_message(prompt)
-        return response.text
-    except Exception as e:
-        return f"Sorry, an error occurred: {e}"
-
-
-# 5. Streamlit User Interface (UI)
-# ==============================================================================
-
-# Display existing messages from history
+# --- 3. Display Chat History ---
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Handle new user input
-if prompt := st.chat_input("Ask a question, or respond to the tutor..."):
-    # Add user message to display history and show it in the app
+# --- 4. Handle User Input ---
+if prompt := st.chat_input("Ask me a question..."):
+    # Add user message to history and display it
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Generate and display the assistant's response
-    with st.chat_message("assistant"):
-        # Show a progress indicator while waiting for the AI
-        with st.spinner("Thinking like a tutor..."):
-            full_response = generate_response(prompt)
-            st.markdown(full_response)
+    # Get the model's response
+    try:
+        # The key is to use the 'chat' object that was cached and is persistent
+        response = chat.send_message(prompt, stream=True)
         
-        # Add assistant response to display history
+        # Display the streaming response
+        with st.chat_message("assistant"):
+            # Use st.write_stream for a nice typewriter effect
+            full_response = st.write_stream(response)
+
+        # Append the full response to the session history
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-# Optional: Add a button to reset the conversation
-if st.sidebar.button("Reset Conversation"):
-    # Clear both the display history and the underlying chat session
-    st.session_state.messages = []
-    del st.session_state.chat_session
-    st.rerun()
-        
-    # pw = '@RQu&S56pAS1'
+    except Exception as e:
+        # This will catch your "client has been closed" error and other issues
+        st.error(f"Sorry, an error occurred during the request: {e}")
