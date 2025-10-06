@@ -25,7 +25,7 @@ st.write('api key = ', API_KEY)
 client = genai.Client(api_key=API_KEY)
 
 # Streamlit Page Setup
-st.set_page_config(page_title="Personalized AI Tutor", layout="wide")
+# st.set_page_config(page_title="Personalized AI Tutor", layout="wide")
 st.title("🧠 Your Personalized AI Tutor (Gemini-Powered)")
 st.caption("Ask me about any topic, and I'll explain it, quiz you, or help you practice!")
 
