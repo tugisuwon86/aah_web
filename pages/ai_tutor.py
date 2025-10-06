@@ -42,6 +42,7 @@ show_pages(
         Section(name="For Students Only", icon="💪"),    
         Page("pages/student_registration.py", "Student Registration"),
         Page("pages/tutor_signup.py", "Sign up for a session"),
+        Page("pages/ai_tutor.py", "AI Tutor session"),
 
         Section(name="Class Update", icon="💪"),    
         # Page("pages/cancel_session.py", "Student Registration"),
