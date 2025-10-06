@@ -134,6 +134,7 @@ def get_chat_session(SYSTEM_PROMPT, MODEL_NAME):
             model=MODEL_NAME,
             config=genai.types.GenerateContentConfig(
             system_instruction=SYSTEM_PROMPT  # Correctly sets the system prompt
+            )
         )
         return chat_session
     except Exception as e:
