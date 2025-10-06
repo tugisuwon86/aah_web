@@ -180,13 +180,13 @@ if prompt := st.chat_input("Ask me a question..."):
 
     # Get the model's response
     try:
-        # The key is to use the 'chat' object that was cached and is persistent
-        response = chat.send_message(prompt, stream=True)
+        # --- FIX IS HERE: Change the method to send_message_stream() ---
+        response_stream = chat.send_message_stream(prompt)
         
         # Display the streaming response
         with st.chat_message("assistant"):
-            # Use st.write_stream for a nice typewriter effect
-            full_response = st.write_stream(response)
+            # st.write_stream() consumes the generator from send_message_stream()
+            full_response = st.write_stream(response_stream)
 
         # Append the full response to the session history
         st.session_state.messages.append({"role": "assistant", "content": full_response})
