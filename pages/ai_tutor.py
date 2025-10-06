@@ -138,65 +138,46 @@ Tutor Rules:
 MODEL_NAME = 'gemini-2.5-flash'
 
 # Initialize the client
+# --- Initialize client (this can safely be cached) ---
 @st.cache_resource
-def get_chat_session():
-    # Make sure your API key is set as an environment variable (e.g., GEMINI_API_KEY)
-    # The client will automatically pick it up.
-    try:
-        # Create the client
-        client = genai.Client(api_key=API_KEY)
-        
-        # Create and return the chat session
-        chat_session = client.chats.create(
-            model=MODEL_NAME,
-            config=genai.types.GenerateContentConfig(
-            system_instruction=SYSTEM_PROMPT  # Correctly sets the system prompt
-            )
-        )
-        return chat_session
-    except Exception as e:
-        st.error(f"Error initializing Gemini client or chat session. Is your API key set correctly? Error: {e}")
-        return None
+def get_client():
+    return genai.Client(api_key=API_KEY)
 
+client = get_client()
 
-# Get the persistent chat session
-chat = get_chat_session()
-
-# Check if the resource was successfully created
-if chat is None:
-    st.error("Cannot proceed: The chat resource failed to initialize.")
-    st.stop() # Stop execution if the resource is missing
-    
-# --- 2. Initialize Chat History in Session State ---
-# This ensures the history is not lost when the script re-runs
+# --- Keep chat history ---
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.session_state.messages = [
+        {"role": "system", "content": SYSTEM_PROMPT}
+    ]
 
-# --- 3. Display Chat History ---
+# --- Display chat history ---
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# --- 4. Handle User Input ---
+# --- Handle user input ---
 if prompt := st.chat_input("Ask me a question..."):
-    # Add user message to history and display it
+    # Add user's message
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Get the model's response
-    # try:
-    # --- FIX IS HERE: Change the method to send_message_stream() ---
-    response_stream = chat.send_message_stream(prompt)
-    
-    # Display the streaming response
+    # Create a new chat each time (do not reuse the old one)
+    chat_session = client.chats.create(
+        model=MODEL_NAME,
+        config=genai.types.GenerateContentConfig(
+            system_instruction=SYSTEM_PROMPT
+        )
+    )
+
+    # Re-send past messages so it has context
+    for m in st.session_state.messages[:-1]:  # exclude latest user input
+        chat_session.send_message(m["content"])
+
+    # Stream the model’s reply
     with st.chat_message("assistant"):
-        # st.write_stream() consumes the generator from send_message_stream()
-        full_response = st.write_stream(response_stream)
+        stream = chat_session.send_message_stream(prompt)
+        full_response = st.write_stream(stream)
 
-    # Append the full response to the session history
     st.session_state.messages.append({"role": "assistant", "content": full_response})
-
-    # except Exception as e:
-    #     # This will catch your "client has been closed" error and other issues
-    #     st.error(f"Sorry, an error occurred during the request: {e}")
