@@ -151,13 +151,10 @@ if "messages" not in st.session_state:
 # Initialize the Gemini Chat object with the history and system prompt
 # We use the Chat service to manage the conversation context automatically.
 if "chat_session" not in st.session_state:
-    # Convert the System Prompt into a format the Chat Session can use
-    system_instruction_part = genai.types.Part.from_text(SYSTEM_PROMPT)
-    
     st.session_state.chat_session = client.chats.create(
         model=MODEL_NAME,
         config=genai.types.GenerateContentConfig(
-            system_instruction=SYSTEM_PROMPT
+            system_instruction=SYSTEM_PROMPT  # Correctly sets the system prompt
         )
     )
     # Add an initial welcome message to the display history
