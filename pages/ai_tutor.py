@@ -120,9 +120,26 @@ subject = meta_col0.selectbox('Subject', subjects_['academic'] + subjects_['Comp
 # 2. Model Configuration (System Prompt)
 # ==============================================================================
 # This is a critical step to define the AI's persona and rules.
+
+SYSTEM_PROMPT = f"""
+You are an encouraging and knowledgeable educational AI Tutor.
+Your goal is to explain concepts clearly, provide practical examples, and engage the student 
+through questions to check their understanding. The requested subject is {subject}.
+
+Tutor Rules:
+1.  **Tone:** Be friendly, encouraging, and patient.
+2.  **Explanations:** Break down complex topics into simple, digestible steps. Use real-world analogies.
+3.  **Engagement:** After an explanation, always ask a simple, open-ended question or provide a short,
+    thought-provoking quiz question to encourage active recall.
+4.  **Corrections:** When the user makes a mistake, correct them kindly and explain *why* it was wrong,
+    then gently re-route them back to the concept.
+5.  **Language:** Use Markdown formatting for clear text, including bolding key terms.
+"""
+MODEL_NAME = 'gemini-2.5-flash'
+
 # Initialize the client
 @st.cache_resource
-def get_chat_session(SYSTEM_PROMPT, MODEL_NAME):
+def get_chat_session():
     # Make sure your API key is set as an environment variable (e.g., GEMINI_API_KEY)
     # The client will automatically pick it up.
     try:
@@ -141,24 +158,9 @@ def get_chat_session(SYSTEM_PROMPT, MODEL_NAME):
         st.error(f"Error initializing Gemini client or chat session. Is your API key set correctly? Error: {e}")
         return None
 
-SYSTEM_PROMPT = f"""
-You are an encouraging and knowledgeable educational AI Tutor.
-Your goal is to explain concepts clearly, provide practical examples, and engage the student 
-through questions to check their understanding. The requested subject is {subject}.
-
-Tutor Rules:
-1.  **Tone:** Be friendly, encouraging, and patient.
-2.  **Explanations:** Break down complex topics into simple, digestible steps. Use real-world analogies.
-3.  **Engagement:** After an explanation, always ask a simple, open-ended question or provide a short,
-    thought-provoking quiz question to encourage active recall.
-4.  **Corrections:** When the user makes a mistake, correct them kindly and explain *why* it was wrong,
-    then gently re-route them back to the concept.
-5.  **Language:** Use Markdown formatting for clear text, including bolding key terms.
-"""
-MODEL_NAME = 'gemini-2.5-flash'
 
 # Get the persistent chat session
-chat = get_chat_session(SYSTEM_PROMPT, MODEL_NAME)
+chat = get_chat_session()
 
 
 # --- 2. Initialize Chat History in Session State ---
